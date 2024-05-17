@@ -3,7 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 import { useState } from 'react';
 
 const useSignup = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
   const signup = async ({ username, email, password, confirmPassword }) => {
     const success = handleErrors({
@@ -14,7 +14,7 @@ const useSignup = () => {
     });
     if (!success) return;
 
-    setLoading(true);
+    setIsLoading(true);
     try {
       const res = await fetch('http://localhost:5000/api/users/signup', {
         method: 'POST',
@@ -25,18 +25,23 @@ const useSignup = () => {
       });
       const data = await res.json();
       console.log(data);
-      if (data.error === 'User already exists') {
-        new Error(data.error);
+      if (data.message === 'User already exists') {
+        toast.error(data.message);
+        return false;
+      }
+      if (data.message === 'Password must be at least 8 characters') {
+        toast.error(data.message);
+        return false;
       }
       localStorage.setItem('users-auth', JSON.stringify(data));
       setAuthUser(data);
     } catch (err) {
       toast.error(err.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
-  return { signup, loading };
+  return { signup, isLoading };
 };
 
 export default useSignup;
@@ -48,10 +53,6 @@ function handleErrors({ username, email, password, confirmPassword }) {
   }
   if (password !== confirmPassword) {
     toast.error('Passwords do not match');
-    return false;
-  }
-  if (password.length < 8) {
-    toast.error('Password must be at least 8 characters');
     return false;
   }
   if (username.length < 5) {
