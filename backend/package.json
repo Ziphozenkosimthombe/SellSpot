@@ -1,0 +1,38 @@
+{
+  "name": "SellSpot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint",
+    "fix": "eslint --fix",
+    "check-lint": "lint [0-9]*.js",
+    "start-server": "nodemon  --exec babel-node --presets @babel/preset-env ./server.js",
+    "dev": "nodemon --exec babel-node --presets @babel/preset-env"
+  },
+  "keywords": [],
+  "author": "ziphozenkosi ncayiyana",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.4",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/node": "^7.23.9",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/register": "^7.23.7",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.5.0",
+    "nodemon": "^3.1.0"
+  }
+}
