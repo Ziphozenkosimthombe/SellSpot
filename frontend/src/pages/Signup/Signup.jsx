@@ -9,7 +9,7 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
   });
-  const { signup, loading } = useSignup();
+  const { signup, isLoading } = useSignup();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -20,7 +20,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup(formData); 
+    await signup(formData);
   };
 
   return (
@@ -43,6 +43,8 @@ const Signup = () => {
               type="text"
               placeholder="John Doe"
               name="username"
+              required
+              autoComplete="off"
               value={formData.username}
               className="input input-bordered  h-10"
               onChange={handleChange}
@@ -58,6 +60,8 @@ const Signup = () => {
               type="email"
               placeholder="example@gmail.com"
               name="email"
+              required
+              autoComplete="off"
               value={formData.email}
               className="input input-bordered h-10"
               onChange={handleChange}
@@ -102,7 +106,7 @@ const Signup = () => {
           </Link>
           <div>
             <button className="btn w-60 btn-sm mt-2 border border-slate-700">
-              {loading ? (
+              {isLoading ? (
                 <span className="loading loading-spinner"></span>
               ) : (
                 'Sign Up'
