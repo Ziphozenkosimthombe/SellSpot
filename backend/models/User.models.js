@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-      unique: true,
+
       minLength: 15,
       maxLength: 15,
       validate: {
