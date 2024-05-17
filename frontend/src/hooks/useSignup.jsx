@@ -3,8 +3,8 @@ import { useAuthContext } from '../context/AuthContext';
 import { useState } from 'react';
 
 const useSignup = () => {
+  const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
-  const { loading, setLoading } = useState(false);
   const signup = async ({ username, email, password, confirmPassword }) => {
     const success = handleErrors({
       username,
@@ -24,8 +24,9 @@ const useSignup = () => {
         body: JSON.stringify({ username, email, password, confirmPassword }),
       });
       const data = await res.json();
-      if (data.error) {
-        throw new Error(data.error);
+      console.log(data);
+      if (data.error === 'User already exists') {
+        new Error(data.error);
       }
       localStorage.setItem('users-auth', JSON.stringify(data));
       setAuthUser(data);
@@ -51,6 +52,14 @@ function handleErrors({ username, email, password, confirmPassword }) {
   }
   if (password.length < 8) {
     toast.error('Password must be at least 8 characters');
+    return false;
+  }
+  if (username.length < 5) {
+    toast.error('Username must be at least 3 characters');
+    return false;
+  }
+  if (!username.match(/^[a-zA-Z]+$/)) {
+    toast.error('Username can only contain letters');
     return false;
   }
 
