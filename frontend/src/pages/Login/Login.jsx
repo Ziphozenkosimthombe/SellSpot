@@ -45,7 +45,7 @@ const Login = () => {
               autoComplete="off"
               placeholder="example@gmail.com"
               onChange={handleChange}
-              className="input input-bordered h-10"
+              className="input input-bordered h-10 text-black font-extrabold"
             />
           </div>
 
@@ -61,7 +61,7 @@ const Login = () => {
               required
               placeholder="Enter Password"
               onChange={handleChange}
-              className="input input-bordered h-10"
+              className="input input-bordered h-10t text-black font-extrabold"
             />
           </div>
 
@@ -73,7 +73,7 @@ const Login = () => {
             Already have an account?
           </Link>
           <div>
-            <button className="btn w-60 btn-sm mt-2 border border-slate-700">
+            <button className="btn w-60 btn-sm mt-2 border border-slate-700 font-extrabold">
               {isLoading ? (
                 <span className="loading loading-spinner"></span>
               ) : (

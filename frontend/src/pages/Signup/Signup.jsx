@@ -25,7 +25,7 @@ const Signup = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className=" p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
+      <div className=" p-6 rounded-lg shadow-2xl bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
           Sign Up <span className="text-blue-500"> OnlineShopping</span>
         </h1>
@@ -46,7 +46,7 @@ const Signup = () => {
               required
               autoComplete="off"
               value={formData.username}
-              className="input input-bordered  h-10"
+              className="input input-bordered  h-10 text-black font-extrabold"
               onChange={handleChange}
             />
           </div>
@@ -63,7 +63,7 @@ const Signup = () => {
               required
               autoComplete="off"
               value={formData.email}
-              className="input input-bordered h-10"
+              className="input input-bordered h-10 text-black font-extrabold"
               onChange={handleChange}
             />
           </div>
@@ -105,7 +105,7 @@ const Signup = () => {
             Already have an account?
           </Link>
           <div>
-            <button className="btn w-60 btn-sm mt-2 border border-slate-700">
+            <button className="btn w-60 btn-sm mt-2 border border-slate-700 font-extrabold">
               {isLoading ? (
                 <span className="loading loading-spinner"></span>
               ) : (
