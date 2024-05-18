@@ -20,17 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-        default:"",
-      minLength: 15,
-      maxLength: 15,
-      validate: {
-        validator: function (value) {
-          const phoneNumberRegex =
-            /^\+[0-9]{1,3}[-. ]?\(?[0-9]{1,3}\)?[-. ]?[0-9]{1,3}[-. ]?[0-9]{3,15}$/;
-          return phoneNumberRegex.test(value);
-        },
-        message: 'Invalid phone number format. Please include country code.',
-      },
+      default: '',
     },
     address: [
       {
