@@ -2,7 +2,7 @@ import Seller from '../models/Seller.model';
 import User from '../models/User.models';
 
 class ApplyController {
-  static async applyingToSell(req, res) {
+  static async applyingToSell(req, res, next) {
     try {
       const {
         firstName,
@@ -20,27 +20,35 @@ class ApplyController {
       //find user by id
       const user = await User.findById(userId);
       if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        const error = new Error('User not found');
+        error.status = 404;
+        return next(error);
       }
       //check if email matches
       if (user.email !== email) {
-        return res
-          .status(400)
-          .json({ message: 'Email must match the email you use to register' });
+        const error = new Error(
+          'Email must match the email you use to register'
+        );
+        error.status = 400;
+        return next(error);
       }
       // Check if a seller already exists with the given userId
       const existingSeller = await Seller.findOne({ userId });
       if (existingSeller) {
-        return res.status(400).json({ message: 'Seller already exists' });
+        const error = new Error('Seller already exists');
+        error.status = 400;
+        return next(error);
       }
       // Check for existing seller with the same email, phone number, or company name
       const duplicateSeller = await Seller.findOne({
         $or: [{ email }, { phoneNumber }, { companyName }],
       });
       if (duplicateSeller) {
-        return res.status(400).json({
-          message: 'Email or Phone number or Company name already exist',
-        });
+        const error = new Error(
+          'Email or Phone number or Company name already exist'
+        );
+        error.status = 400;
+        return next(error);
       }
 
       const newUser = new Seller({
@@ -81,11 +89,13 @@ class ApplyController {
           userId: newUser.userId,
         });
       } else {
-        return res.status(400).json({ message: 'Invalid user data' });
+        const error = new Error('Invalid user data');
+        error.status = 400;
+        return next(error);
       }
     } catch (err) {
       console.log('server error base on the applying', err);
-      res.status(500).json({ message: err.message });
+      return next(err);
     }
   }
 }
