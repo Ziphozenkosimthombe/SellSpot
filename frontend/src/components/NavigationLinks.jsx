@@ -16,6 +16,11 @@ const NavigationLinks = () => {
           </Link>
         </li>
         <li>
+          <Link to={'/sell'} className=" hover:text-gray-400 font-bold ">
+            Sell on SellSpot
+          </Link>
+        </li>
+        <li>
           <Link to={'/aboutUs'} className=" hover:text-gray-400 font-bold ">
             About Us
           </Link>
