@@ -56,7 +56,14 @@ class ApplyController {
         userId,
       });
       await newUser.save();
-      user.is_seller = true;
+
+      // update user to be a seller
+      if (!user.is_seller) {
+        user.is_seller = true;
+      }
+      if (user.address.length === 0) {
+        user.address = newUser.address;
+      }
       await user.save();
 
       if (newUser) {
