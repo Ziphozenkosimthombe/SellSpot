@@ -11,7 +11,6 @@ import errHandle from './middleware/error.middleware';
 import notFound from './middleware/notFound.middleware';
 //import logger from './middleware/logger.middleware';
 
-
 const envFile = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
 dotenv.config({ path: `./config/${envFile}` });
 connectDB();

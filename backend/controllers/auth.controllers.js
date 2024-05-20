@@ -9,15 +9,18 @@ class AuthController {
       const user = await User.findOne({ $or: [{ username }, { email }] });
 
       if (user) {
-    
         const error = new Error('User already exists');
+        error.status = 400;
+        return next(error);
+      }
+      if (username.length < 5) {
+        const error = new Error('Username must be at least 5 characters long');
         error.status = 400;
         return next(error);
       }
 
       if (password.length < 8) {
-   
-        const error = new Error('Password must be at least 8 characters');
+        const error = new Error('Password must be at least 8 characters long');
         error.status = 400;
         return next(error);
       }
@@ -40,11 +43,10 @@ class AuthController {
         });
       }
       const error = new Error('Invalid user data');
-  
+
       error.status = 400;
       return next(error);
     } catch (err) {
- 
       return next(err);
     }
   }
