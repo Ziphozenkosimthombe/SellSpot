@@ -3,19 +3,26 @@ import bcrypt from 'bcryptjs';
 import generateTokenAndSetCookie from '../utils/generateTokeAndSetCookie';
 
 class AuthController {
-  static async signup(req, res) {
+  static async signup(req, res, next) {
     try {
       const { username, email, password } = req.body;
       const user = await User.findOne({ $or: [{ username }, { email }] });
 
       if (user) {
-        return res.status(400).json({ message: 'User already exists' });
+        const error = new Error('User already exists');
+        error.status = 400;
+        return next(error);
+      }
+      if (username.length < 5) {
+        const error = new Error('Username must be at least 5 characters long');
+        error.status = 400;
+        return next(error);
       }
 
       if (password.length < 8) {
-        return res
-          .status(400)
-          .json({ message: 'Password must be at least 8 characters' });
+        const error = new Error('Password must be at least 8 characters long');
+        error.status = 400;
+        return next(error);
       }
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(password, salt);
@@ -35,14 +42,16 @@ class AuthController {
           email: newUser.email,
         });
       }
-      res.status(400).json({ message: 'Invalid user data' });
+      const error = new Error('Invalid user data');
+
+      error.status = 400;
+      return next(error);
     } catch (err) {
-      res.status(500).json({ message: err.message });
-      console.log('error on the auth.controllers signup', err);
+      return next(err);
     }
   }
 
-  static async login(req, res) {
+  static async login(req, res, next) {
     try {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
@@ -53,7 +62,9 @@ class AuthController {
       );
 
       if (!user || !isPasswordCorrect) {
-        return res.status(400).json({ message: 'Invalid credentials' });
+        const error = new Error('Invalid credentials');
+        error.status = 400;
+        return next(error);
       }
 
       generateTokenAndSetCookie(user._id, res);
@@ -63,17 +74,17 @@ class AuthController {
         email: user.email,
       });
     } catch (err) {
-      res.status(500).json({ message: err.message });
       console.log('Error on the auth.controller login', err);
+      return next(err);
     }
   }
-  static async logout(_req, res) {
+  static async logout(_req, res, next) {
     try {
       res.cookie('jwt', '', { maxAge: 1 });
       res.status(201).json({ message: 'Logged out successfully' });
     } catch (err) {
-      res.status(500).json({ message: err.message });
       console.log('Error on the auth.controller logout', err);
+      return next(err);
     }
   }
 }
