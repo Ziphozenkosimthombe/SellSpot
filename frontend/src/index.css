@@ -11,3 +11,15 @@
   background-color: #fff;
   color: #000;
 }
+
+.changing {
+  width: 40rem;
+}
+
+.apply {
+  width: 25rem;
+}
+
+.example {
+  margin-right: 5rem;
+}

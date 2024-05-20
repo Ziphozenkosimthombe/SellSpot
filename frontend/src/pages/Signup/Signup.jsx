@@ -46,7 +46,7 @@ const Signup = () => {
               required
               autoComplete="off"
               value={formData.username}
-              className="input input-bordered  h-10 text-black font-extrabold"
+              className="input input-bordered  h-10 text-black font-extrabold bg-white"
               onChange={handleChange}
             />
           </div>
@@ -63,7 +63,7 @@ const Signup = () => {
               required
               autoComplete="off"
               value={formData.email}
-              className="input input-bordered h-10 text-black font-extrabold"
+              className="input input-bordered h-10 text-black font-extrabold bg-white"
               onChange={handleChange}
             />
           </div>
@@ -78,7 +78,7 @@ const Signup = () => {
               placeholder="Enter Password"
               name="password"
               value={formData.password}
-              className="input input-bordered h-10"
+              className="input input-bordered h-10 bg-white"
               onChange={handleChange}
             />
           </div>
@@ -93,7 +93,7 @@ const Signup = () => {
               placeholder="Confirm Password"
               name="confirmPassword"
               value={formData.confirmPassword}
-              className=" input input-bordered h-10"
+              className=" input input-bordered h-10 bg-white"
               onChange={handleChange}
             />
           </div>

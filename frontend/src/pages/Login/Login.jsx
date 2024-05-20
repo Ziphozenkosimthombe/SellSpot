@@ -45,7 +45,7 @@ const Login = () => {
               autoComplete="off"
               placeholder="example@gmail.com"
               onChange={handleChange}
-              className="input input-bordered h-10 text-black font-extrabold"
+              className="input input-bordered h-10 text-black font-extrabold bg-white"
             />
           </div>
 
@@ -61,7 +61,7 @@ const Login = () => {
               required
               placeholder="Enter Password"
               onChange={handleChange}
-              className="input input-bordered h-10t text-black font-extrabold"
+              className="input input-bordered h-10t text-black font-extrabold bg-white"
             />
           </div>
 

@@ -16,7 +16,7 @@ const NavigationLinks = () => {
           </Link>
         </li>
         <li>
-          <Link to={'/sell'} className=" hover:text-gray-400 font-bold ">
+          <Link to={'/apply'} className=" hover:text-gray-400 font-bold ">
             Sell on SellSpot
           </Link>
         </li>
