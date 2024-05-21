@@ -166,6 +166,9 @@ const ApplyToSell = () => {
                 <option value="social_media">No</option>
               </select>
             </div>
+            <div className="w-full  mt-10 -mx-6 -ml-2">
+              <hr className="border-t border-gray-300 " />
+            </div>
 
             <div className="mt-16">
               <button className="btn w-60 btn-sm mt-2 border border-slate-700 font-extrabold">
