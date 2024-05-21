@@ -78,7 +78,7 @@ const Signup = () => {
               placeholder="Enter Password"
               name="password"
               value={formData.password}
-              className="input input-bordered h-10 bg-white"
+              className="input input-bordered h-10 bg-white text-black font-extrabold"
               onChange={handleChange}
             />
           </div>
@@ -93,7 +93,7 @@ const Signup = () => {
               placeholder="Confirm Password"
               name="confirmPassword"
               value={formData.confirmPassword}
-              className=" input input-bordered h-10 bg-white"
+              className=" input input-bordered h-10 bg-white text-black font-extrabold"
               onChange={handleChange}
             />
           </div>

@@ -1,13 +1,15 @@
 import { Toaster } from 'react-hot-toast';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import { DarkModeContext } from './context/DarkModeContext';
-import ApplyToSell from './components/ApplyToSell';
+import ApplyToSell from './pages/Apply/ApplyToSell';
+import { useAuthContext } from './context/AuthContext';
 function App() {
+  const { authUser } = useAuthContext();
   const { isDarkMode } = useContext(DarkModeContext);
   useEffect(() => {
     if (isDarkMode) {
@@ -22,11 +24,24 @@ function App() {
   return (
     <div className={`${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/apply" element={<ApplyToSell />} />
+        <Route
+          path="/"
+          element={authUser ? <Home /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path="/login"
+          element={authUser ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/signup"
+          element={authUser ? <Navigate to="/" /> : <Signup />}
+        />
+        <Route
+          path="/apply"
+          element={authUser ? <ApplyToSell /> : <Navigate to={'/login'} />}
+        />
       </Routes>
+
       <Toaster />
     </div>
   );
