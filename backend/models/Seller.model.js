@@ -28,10 +28,12 @@ const sellerSchema = new mongoose.Schema(
       unique: true,
       validate: {
         validator: function (value) {
-      const southAfricaPhoneNumberRegex = /^\+27[0-9]{9}$/;
-      return southAfricaPhoneNumberRegex.test(value);
-    },
-          message: 'Invalid phone number format. Please include the country code (+27) followed by 9 digits.'
+          const southAfricaPhoneNumberRegex = /^\+27[0-9]{9}$/;
+          return southAfricaPhoneNumberRegex.test(value);
+        },
+        message:
+          'Invalid phone number format. Please include the country code (+27) followed by 9 digits.',
+      },
     },
     findUs: {
       type: String,
