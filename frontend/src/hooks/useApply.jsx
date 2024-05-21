@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useLocalStorage } from 'usehooks-ts';
 
 const useApply = () => {
   const [isLoading, setIsLoading] = useState(false);
 
+  const [value] = useLocalStorage('users-auth', 0);
+  const { _id: userId } = value;
+
   const selling = async ({
-    userId,
     firstName,
     lastName,
     email,
@@ -31,7 +34,7 @@ const useApply = () => {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/apply/create/${userId}`,
+        `/api/apply/create/${userId}`,
         {
           method: 'POST',
           headers: {

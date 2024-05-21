@@ -30,15 +30,15 @@ function App() {
         />
         <Route
           path="/login"
-          element={authUser ? <Navigate to="/" /> : <Login />}
+          element={authUser ? <Login /> : <Navigate to={'/'} />}
         />
         <Route
           path="/signup"
-          element={authUser ? <Navigate to="/" /> : <Signup />}
+          element={authUser ? <Signup /> : <Navigate to={'/'} />}
         />
         <Route
           path="/apply"
-          element={authUser ? <ApplyToSell /> : <Navigate to={'/login'} />}
+          element={authUser ? <ApplyToSell /> : <Navigate to="/login" />}
         />
       </Routes>
 
