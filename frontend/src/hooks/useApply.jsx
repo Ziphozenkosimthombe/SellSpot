@@ -5,6 +5,7 @@ const useApply = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const selling = async ({
+    userId,
     firstName,
     lastName,
     email,
@@ -29,23 +30,26 @@ const useApply = () => {
     if (!success) return;
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/apply/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          findUs,
-          companyName,
-          category,
-          locatedIn,
-          address,
-        }),
-      });
+      const res = await fetch(
+        `http://localhost:5000/api/apply/create/${userId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            findUs,
+            companyName,
+            category,
+            locatedIn,
+            address,
+          }),
+        }
+      );
       const data = await res.json();
       if (data.message === 'User not found') {
         toast.error(data.message);

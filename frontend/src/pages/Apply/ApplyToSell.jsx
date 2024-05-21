@@ -20,7 +20,7 @@ const ApplyToSell = () => {
         street: '',
         Suburb: '',
         city: '',
-        province: 'Kwazulu',
+        province: 'Eastern Cape',
         postalCode: '',
         country: '',
       },
