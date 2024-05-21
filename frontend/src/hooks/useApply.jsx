@@ -16,7 +16,7 @@ const useApply = () => {
     findUs,
     companyName,
     category,
-    locatedIn,
+    located,
     address,
   }) => {
     const success = handleErrors({
@@ -27,52 +27,35 @@ const useApply = () => {
       findUs,
       companyName,
       category,
-      locatedIn,
+      located,
       address,
     });
     if (!success) return;
     setIsLoading(true);
     try {
-      const res = await fetch(
-        `/api/apply/create/${userId}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            findUs,
-            companyName,
-            category,
-            locatedIn,
-            address,
-          }),
-        }
-      );
+      const res = await fetch(`/api/apply/create/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          findUs,
+          companyName,
+          category,
+          located,
+          address,
+        }),
+      });
       const data = await res.json();
       if (data.message === 'User not found') {
         toast.error(data.message);
         return false;
       }
-      if (data.message === 'Email must match the email you use to register') {
-        toast.error(data.message);
-        return false;
-      }
-      if (data.message === 'Seller already exists') {
-        toast.error(data.message);
-        return false;
-      }
-      if (
-        data.message === 'Email or Phone number or Company name already exist'
-      ) {
-        toast.error(data.message);
-        return false;
-      }
-      if (data.message === 'Invalid user data') {
+      if (data.message) {
         toast.error(data.message);
         return false;
       }
@@ -97,7 +80,7 @@ const handleErrors = ({
   findUs,
   companyName,
   category,
-  locatedIn,
+  located,
   address,
 }) => {
   if (
@@ -108,7 +91,7 @@ const handleErrors = ({
     !findUs ||
     !companyName ||
     !category ||
-    !locatedIn ||
+    !located ||
     !address
   ) {
     toast.error('Please fill in all fields');
@@ -116,6 +99,16 @@ const handleErrors = ({
   }
   if ((firstName.length || lastName.length) < 5) {
     toast.error('Name must be at least 5 characters');
+    return false;
+  }
+  if (
+    !address.streetAddress ||
+    !address.Suburb ||
+    !address.city ||
+    !address.country ||
+    !address.postalCode
+  ) {
+    toast.error('Please fill in all address fields');
     return false;
   }
   return true;
