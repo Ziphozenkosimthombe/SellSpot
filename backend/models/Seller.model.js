@@ -38,7 +38,7 @@ const sellerSchema = new mongoose.Schema(
       },
     },
     findUs: {
-      type: [String],
+      type: String,
       required: true,
     },
     companyName: {
@@ -47,7 +47,7 @@ const sellerSchema = new mongoose.Schema(
       unique: true,
     },
     category: {
-      type: [String],
+      type: String,
       required: true,
     },
     website: {
