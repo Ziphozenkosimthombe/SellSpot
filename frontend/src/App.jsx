@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
+import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
 import { DarkModeContext } from './context/DarkModeContext';
 import ApplyToSell from './pages/Apply/ApplyToSell';
@@ -24,21 +25,22 @@ function App() {
   return (
     <div className={`${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <Routes>
+        <Route path="/" element={authUser ? <Home /> : <Main />} />
         <Route
-          path="/"
-          element={authUser ? <Home /> : <Navigate to={'/login'} />}
+          path="/signup"
+          element={authUser ? <Navigate to="/home" /> : <Signup />}
         />
         <Route
           path="/login"
-          element={authUser ? <Login /> : <Navigate to={'/'} />}
-        />
-        <Route
-          path="/signup"
-          element={authUser ? <Signup /> : <Navigate to={'/'} />}
+          element={authUser ? <Navigate to="/home" /> : <Login />}
         />
         <Route
           path="/apply"
           element={authUser ? <ApplyToSell /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/home"
+          element={authUser ? <Home /> : <Navigate to="/login" />}
         />
       </Routes>
 
