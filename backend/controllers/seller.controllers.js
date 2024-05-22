@@ -15,7 +15,8 @@ class ApplyController {
         located,
         address,
       } = req.body;
-      const userId = req.params.id;
+
+      const userId = req.user._id;
 
       //find user by id
       const user = await User.findById(userId);
@@ -33,7 +34,7 @@ class ApplyController {
         return next(error);
       }
       // Check if a seller already exists with the given userId
-      const existingSeller = await Seller.findOne({ userId });
+      const existingSeller = await Seller.findOne({ user });
       if (existingSeller) {
         const error = new Error('Seller already exists');
         error.status = 400;
@@ -52,6 +53,7 @@ class ApplyController {
       }
 
       const newUser = new Seller({
+        user: userId,
         firstName,
         lastName,
         email,
@@ -61,18 +63,19 @@ class ApplyController {
         category,
         located,
         address,
-        userId,
       });
       await newUser.save();
 
-      // update user to be a seller
-      if (!user.is_seller) {
-        user.is_seller = true;
-      }
-      if (user.address.length === 0) {
-        user.address = newUser.address;
-      }
-      await user.save();
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $set: {
+            is_seller: true,
+            ...(address ? { address } : {}),
+          },
+        },
+        { new: true }
+      );
 
       if (newUser) {
         res.status(201).json({
@@ -86,7 +89,7 @@ class ApplyController {
           category: newUser.category,
           located: newUser.located,
           address: newUser.address,
-          userId: newUser.userId,
+          userId: newUser.user,
         });
       } else {
         const error = new Error('Invalid user data');
