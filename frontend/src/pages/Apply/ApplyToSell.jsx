@@ -330,7 +330,7 @@ const ApplyToSell = () => {
                 )}
               </button>
               <Link
-                to="/"
+                to="/home"
                 className="w-60 btn btn-sm mt-2 border border-slate-700 font-extrabold"
               >
                 <button>Cancel</button>
