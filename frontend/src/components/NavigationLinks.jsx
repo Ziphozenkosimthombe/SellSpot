@@ -1,30 +1,13 @@
-import DarkMode from './DarkAndLight.jsx';
-import { Link } from 'react-router-dom';
+import Links from './Links';
 
+import DarkMode from './DarkAndLight';
 const NavigationLinks = () => {
   return (
     <>
       <ul className="hidden md:flex space-x-4">
-        <li>
-          <Link to={'/Login'} className=" hover:text-gray-400 font-bold ">
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link to={'/signup'} className=" hover:text-gray-400  font-bold ">
-            Register
-          </Link>
-        </li>
-        <li>
-          <Link to={'/apply'} className=" hover:text-gray-400 font-bold ">
-            Sell on SellSpot
-          </Link>
-        </li>
-        <li>
-          <Link to={'/aboutUs'} className=" hover:text-gray-400 font-bold ">
-            About Us
-          </Link>
-        </li>
+        <Links to={'/login'} text={'Login'} />
+        <Links to={'/signup'} text={'Register'} />
+        <Links to={'/aboutUs'} text={'About Us'} />
         <li>
           <DarkMode />
         </li>
