@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 
 const useLogout = () => {
-  const [iseLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
   const logout = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch('http://localhost:5000', {
+      const res = await fetch('/api/users/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -17,7 +17,8 @@ const useLogout = () => {
       const data = await res.json();
       console.log(data);
       if (data.error) {
-        throw new Error(data.message);
+        toast.error(data.error);
+        return false;
       }
       localStorage.removeItem('users-auth');
       setAuthUser(null);
@@ -27,7 +28,7 @@ const useLogout = () => {
       setIsLoading(false);
     }
   };
-  return { logout, iseLoading };
+  return { logout, isLoading };
 };
 
 export default useLogout;

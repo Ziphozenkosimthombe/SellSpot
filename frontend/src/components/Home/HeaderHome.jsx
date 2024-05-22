@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import MenuButton from './MenuButton';
+import MenuButton from '../MenuButton.jsx';
 import NavigateHome from './NavigateHome';
-import Links from './Links';
+import Links from '../Links';
+import LogoutButton from './LogoutButton';
+import { FiShoppingCart } from 'react-icons/fi';
+import { FaRegHeart } from 'react-icons/fa';
 const HeaderHome = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -29,8 +32,17 @@ const HeaderHome = () => {
         <div className="md:hidden shadow-2xl  w-48 fixed top-16 left-0 h-full pt-16">
           <ul className="">
             <Links to={'/apply'} text={'Sell on SellSpot'} />
-            <Links to={'/list'} text={'List'} />
-            <Links to={'/cart'} text={'Cart'} />
+            <Links
+              to={'/list'}
+              text={<FaRegHeart className="w-6  h-6 cursor-pointer" />}
+            />
+            <Links
+              to={'/cart'}
+              text={<FiShoppingCart className="w-6  h-6 cursor-pointer" />}
+            />
+            <div className="ml-4">
+              <LogoutButton />
+            </div>
           </ul>
         </div>
       )}
