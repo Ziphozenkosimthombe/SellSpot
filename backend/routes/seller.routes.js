@@ -4,6 +4,6 @@ import protectRoute from '../middleware/protectRoutes.middleware';
 
 const router = express.Router();
 
-router.post('/create/:id', protectRoute, ApplyController.applyingToSell);
+router.post('/create', protectRoute, ApplyController.applyingToSell);
 
 export default router;
