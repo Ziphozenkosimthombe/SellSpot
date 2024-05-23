@@ -1,7 +1,6 @@
 import CreateProduct from '../models/SellProduct.models';
-//import User from  '../models/User.models'
 import cloudinary from '../middleware/cloudinary.middleware';
-
+import Seller from '../models/Seller.model';
 class SellProductController {
   static async createSellProduct(req, res, next) {
     try {
@@ -21,10 +20,15 @@ class SellProductController {
       const imageUrls = results.map((result) => result.secure_url);
       const cloudinaryIds = results.map((result) => result.public_id);
 
-      // Get other form data
+      //
+      //Get other form data
       const { name, description, price, category, stock_quantity } = req.body;
-      const user = await CreateProduct.findOne({ seller });
-      if (!user) {
+
+      const userId = req.user._id;
+      const user = await Seller.findOne({ user: userId });
+      const sellerId = user._id;
+      console.log(user);
+      if (!sellerId) {
         const error = new Error(
           'you can nto sell on the platform just please register to sell first'
         );
@@ -39,6 +43,7 @@ class SellProductController {
         images: imageUrls, // Store image URLs
         cloudinaryId: cloudinaryIds, // Store Cloudinary IDs
         stock_quantity,
+        seller: sellerId,
       });
 
       await newSellProduct.save();
@@ -63,6 +68,31 @@ class SellProductController {
       }
     } catch (err) {
       console.log('Error on the sellProduct.controller createSellProduct', err);
+      return next(err);
+    }
+  }
+  static async getProducts(_req, res, next) {
+    try {
+      const products = await CreateProduct.find().populate({
+        path: 'seller',
+        select: 'firstName lastName email phoneNumber companyName',
+      });
+      res.status(200).json(products);
+    } catch (err) {
+      console.log('Error on the sellProduct.controller getProducts', err);
+      return next(err);
+    }
+  }
+  static async getByCategory(req, res, next) {
+    try {
+      const category = req.params.category;
+      const products = await CreateProduct.find({ category }).populate({
+        path: 'seller',
+        select: 'firstName lastName email phoneNumber companyName',
+      });
+      res.status(200).json(products);
+    } catch (err) {
+      console.log('Error on the sellProduct.controller getByCategory', err);
       return next(err);
     }
   }

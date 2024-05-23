@@ -6,6 +6,12 @@ import ApplyController from '../controllers/seller.controllers';
 
 const router = express.Router();
 
+router.get('/products', protectRoute, SellProductController.getProducts);
+router.get(
+  '/products/:category',
+  protectRoute,
+  SellProductController.getByCategory
+);
 router.post('/apply/:id', protectRoute, ApplyController.applyingToSell);
 router.post(
   '/sell',
@@ -15,4 +21,3 @@ router.post(
 );
 
 export default router;
-
