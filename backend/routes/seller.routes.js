@@ -1,9 +1,18 @@
 import express from 'express';
-import ApplyController from '../controllers/seller.controllers';
+import upload from '../middleware/multer.middleware';
 import protectRoute from '../middleware/protectRoutes.middleware';
+import SellProductController from '../controllers/sellProduct.controllers';
+import ApplyController from '../controllers/seller.controllers';
 
 const router = express.Router();
 
-router.post('/create', protectRoute, ApplyController.applyingToSell);
+router.post('/apply/:id', protectRoute, ApplyController.applyingToSell);
+router.post(
+  '/sell',
+  protectRoute,
+  upload.array('files', 3), // Allow up to 3 files
+  SellProductController.createSellProduct
+);
 
 export default router;
+

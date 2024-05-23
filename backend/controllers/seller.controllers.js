@@ -16,8 +16,8 @@ class ApplyController {
         address,
       } = req.body;
 
-      const userId = req.user._id;
-
+      //      const userId = req.user._id;
+      const userId = req.params.id;
       //find user by id
       const user = await User.findById(userId);
       if (!user) {
