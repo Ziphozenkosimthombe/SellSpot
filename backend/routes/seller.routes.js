@@ -1,7 +1,7 @@
 import express from 'express';
 import upload from '../middleware/multer.middleware';
 import protectRoute from '../middleware/protectRoutes.middleware';
-import SellProductController from '../controllers/sellProduct.controllers';
+import SellProductController from '../controllers/products.controllers';
 import ApplyController from '../controllers/seller.controllers';
 
 const router = express.Router();

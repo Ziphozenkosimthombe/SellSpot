@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
 
-const SellProductSchema = new mongoose.Schema(
+const ProductsSchema = new mongoose.Schema(
   {
     seller: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Seller',
       required: true,
     },
-    name: {
+    title: {
       type: String,
       required: true,
       trim: true,
     },
     description: {
-      type: String,
+      type: [String],
       required: true,
     },
     price: {
@@ -46,5 +46,5 @@ const SellProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const CreateProduct = mongoose.model('SellProduct', SellProductSchema);
-export default CreateProduct;
+const Products = mongoose.model('Products', ProductsSchema);
+export default Products;
