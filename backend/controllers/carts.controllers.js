@@ -2,6 +2,23 @@ import Carts from '../models/Carts.models';
 import Products from '../models/Products.models';
 
 class CartsController {
+  static async getCart(req, res, next) {
+    try {
+      const userId = req.user._id;
+      const cart = await Carts.findOne({ user: userId }).populate({
+        path: 'items.product',
+        select: 'title description price stock_quantity images',
+        populate: {
+          path: 'seller',
+          select: 'firstName lastName email phoneNumber companyName',
+        },
+      });
+      return res.status(200).json(cart);
+    } catch (err) {
+      console.log('Error in CartsController getCart:', err);
+      return next(err);
+    }
+  }
   static async addItemToCart(req, res, next) {
     try {
       const { productId, quantity } = req.body;
@@ -17,10 +34,7 @@ class CartsController {
       }
 
       // Find or create the user's cart
-      let cart = await Carts.findOne({ user: userId }).populate({
-        path: 'items.product',
-        select: 'title description price stock_quantity images',
-      });
+      let cart = await Carts.findOne({ user: userId });
       if (!cart) {
         cart = new Carts({
           user: userId,
@@ -37,24 +51,11 @@ class CartsController {
       return next(err);
     }
   }
-  static async getCart(req, res, next) {
-    try {
-      const userId = req.user._id;
-      const cart = await Carts.findOne({ user: userId }).populate({
-        path: 'items.product',
-        select: 'title description price stock_quantity images',
-      });
-      return res.status(200).json(cart);
-    } catch (err) {
-      console.log('Error in CartsController getCart:', err);
-      return next(err);
-    }
-  }
 
   static async removeItemFromCart(req, res, next) {
     try {
       const { productId } = req.body;
-      const userId = user._id;
+      const userId = req.user._id;
 
       const cart = await Carts.findOne({ user: userId });
       if (!cart) {

@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import connectDB from './config/database.config';
 import userRoutes from './routes/user.routes';
 import cartsRoutes from './routes/carts.routes';
+import wishlistRoutes from './routes/wishlist.routes';
 import sellerRoutes from './routes/seller.routes';
 import errHandle from './middleware/error.middleware';
 import notFound from './middleware/notFound.middleware';
@@ -28,6 +29,7 @@ app.use('/api/users', userRoutes);
 //app.use('/api/apply', applyRoutes);
 app.use('/api/seller', sellerRoutes);
 app.use('/api/carts', cartsRoutes);
+app.use('/api/wishlists', wishlistRoutes);
 
 //error handle
 app.use(notFound);
