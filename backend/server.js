@@ -8,6 +8,7 @@ import userRoutes from './routes/user.routes';
 import cartsRoutes from './routes/carts.routes';
 import wishlistRoutes from './routes/wishlist.routes';
 import sellerRoutes from './routes/seller.routes';
+import accountRoutes from './routes/account.routes';
 import errHandle from './middleware/error.middleware';
 import notFound from './middleware/notFound.middleware';
 //import logger from './middleware/logger.middleware';
@@ -30,7 +31,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/seller', sellerRoutes);
 app.use('/api/carts', cartsRoutes);
 app.use('/api/wishlists', wishlistRoutes);
-
+app.use('/api/accounts', accountRoutes);
 //error handle
 app.use(notFound);
 app.use(errHandle);
