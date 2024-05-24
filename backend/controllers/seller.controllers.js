@@ -72,6 +72,7 @@ class ApplyController {
           $set: {
             is_seller: true,
             ...(address ? { address } : {}),
+            ...(phoneNumber ? { phoneNumber } : {}),
           },
         },
         { new: true }
