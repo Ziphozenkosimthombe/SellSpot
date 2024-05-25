@@ -16,6 +16,7 @@ const NavigateHome = () => {
           to="/cart"
           text={<FiShoppingCart className="w-6  h-6 cursor-pointer" />}
         ></Links>
+        <Links to="/upload" text="upload" />
       </ul>
     </>
   );

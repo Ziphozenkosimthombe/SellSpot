@@ -43,7 +43,10 @@ function App() {
           path="/home"
           element={authUser ? <Home /> : <Navigate to="/" />}
         />
-        <Route path="/upload" element={<UploadProduct />} />
+        <Route
+          path="/upload"
+          element={authUser ? <UploadProduct /> : <Navigate to="/login" />}
+        />
       </Routes>
 
       <Toaster />
