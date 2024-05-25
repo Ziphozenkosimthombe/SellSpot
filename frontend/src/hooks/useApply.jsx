@@ -33,7 +33,7 @@ const useApply = () => {
     if (!success) return;
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/apply/create/${userId}`, {
+      const res = await fetch(`/api/seller/apply/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

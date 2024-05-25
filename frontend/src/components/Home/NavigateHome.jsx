@@ -6,16 +6,16 @@ const NavigateHome = () => {
   return (
     <>
       <ul className="hidden md:flex space-x-4">
-        <Links to={'/apply'} text={'Sell on SellSpot'} />
+        <Links to="/apply" text="Sell on SellSpot" />
         <LogoutButton />
         <Links
-          to={'/list'}
+          to="/list"
           text={<FaRegHeart className="w-6  h-6 cursor-pointer" />}
-        />
+        ></Links>
         <Links
-          to={'/cart'}
+          to="/cart"
           text={<FiShoppingCart className="w-6  h-6 cursor-pointer" />}
-        />
+        ></Links>
       </ul>
     </>
   );

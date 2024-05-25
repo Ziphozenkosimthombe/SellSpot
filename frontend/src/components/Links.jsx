@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 const Links = (props) => {
   return (
     <>
@@ -15,7 +15,7 @@ const Links = (props) => {
 
 export default Links;
 
-Links.propTypes = {
-  to: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
+//Links.propTypes = {
+//  to: PropTypes.string.isRequired,
+//  text: PropTypes.string.isRequired,
+//};

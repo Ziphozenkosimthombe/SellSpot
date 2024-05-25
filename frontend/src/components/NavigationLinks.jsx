@@ -8,6 +8,7 @@ const NavigationLinks = () => {
         <Links to={'/login'} text={'Login'} />
         <Links to={'/signup'} text={'Register'} />
         <Links to={'/aboutUs'} text={'About Us'} />
+      <Links to={'/upload'} text={'Upload'} />
         <li>
           <DarkMode />
         </li>

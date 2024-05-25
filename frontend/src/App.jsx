@@ -6,6 +6,7 @@ import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
+import UploadProduct from './pages/UploadProduct/UploadProduct';
 import { DarkModeContext } from './context/DarkModeContext';
 import ApplyToSell from './pages/Apply/ApplyToSell';
 import { useAuthContext } from './context/AuthContext';
@@ -42,6 +43,7 @@ function App() {
           path="/home"
           element={authUser ? <Home /> : <Navigate to="/" />}
         />
+        <Route path="/upload" element={<UploadProduct />} />
       </Routes>
 
       <Toaster />
