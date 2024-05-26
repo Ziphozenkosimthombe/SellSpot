@@ -11,17 +11,6 @@ class SellProductController {
         return next(error);
       }
 
-      if (
-        !title ||
-        !descriptions ||
-        !price ||
-        !category ||
-        !files ||
-        !stock_quantity
-      ) {
-        return res.status(400).json({ message: 'Please fill in all fields' });
-      }
-
       // Upload multiple files to Cloudinary
       const uploadPromises = req.files.map((file) =>
         cloudinary.uploader.upload(file.path)
@@ -29,9 +18,6 @@ class SellProductController {
       const results = await Promise.all(uploadPromises);
 
       // Extract URLs and public IDs
-      const descriptionArray = Array.isArray(descriptions)
-        ? descriptions
-        : [descriptions];
       const imageUrls = results.map((result) => result.secure_url);
       const cloudinaryIds = results.map((result) => result.public_id);
 
@@ -60,7 +46,7 @@ class SellProductController {
       }
       const newSellProduct = new Products({
         title,
-        description: descriptionArray,
+        description,
         price,
         category,
         images: imageUrls, // Store image URLs
