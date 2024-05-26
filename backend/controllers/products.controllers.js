@@ -53,6 +53,7 @@ class SellProductController {
         cloudinaryId: cloudinaryIds, // Store Cloudinary IDs
         stock_quantity,
         seller: sellerId,
+        user: userId,
       });
 
       await newSellProduct.save();
@@ -86,6 +87,20 @@ class SellProductController {
         path: 'seller',
         select: 'firstName lastName email phoneNumber companyName',
       });
+
+      res.status(200).json(products);
+    } catch (err) {
+      console.log('Error on the sellProduct.controller getProducts', err);
+      return next(err);
+    }
+  }
+  static async getFromUpload(req, res, next) {
+    try {
+      const userId = req.user.id; // Get the logged-in user's ID
+      const products = await Products.find({ user: userId }).populate({
+        path: 'seller',
+        select: 'firstName lastName email phoneNumber companyName',
+      });
       res.status(200).json(products);
     } catch (err) {
       console.log('Error on the sellProduct.controller getProducts', err);
@@ -102,6 +117,24 @@ class SellProductController {
       res.status(200).json(products);
     } catch (err) {
       console.log('Error on the sellProduct.controller getByCategory', err);
+      return next(err);
+    }
+  }
+  static async getByProductId(req, res, next) {
+    try {
+      const productId = req.params.productId;
+      const product = await Products.findById(productId).populate({
+        path: 'seller',
+        select: 'firstName lastName email phoneNumber companyName',
+      });
+      if (!product) {
+        const error = new Error('Product not found');
+        error.status = 404;
+        return next(error);
+      }
+      res.status(200).json(product);
+    } catch (err) {
+      console.log('Error on the sellProduct.controller getByProductId', err);
       return next(err);
     }
   }

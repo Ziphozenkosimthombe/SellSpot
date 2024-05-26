@@ -7,6 +7,12 @@ import ApplyController from '../controllers/seller.controllers';
 const router = express.Router();
 
 router.get('/products', protectRoute, SellProductController.getProducts);
+router.get('/uploads', protectRoute, SellProductController.getFromUpload);
+router.get(
+  '/products/:productId',
+  protectRoute,
+  SellProductController.getByProductId
+);
 router.get(
   '/products/:category',
   protectRoute,
