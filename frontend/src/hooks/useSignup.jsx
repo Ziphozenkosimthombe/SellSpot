@@ -33,6 +33,7 @@ const useSignup = () => {
         toast.error(data.message);
         return false;
       }
+      toast.success('Signup successful');
       localStorage.setItem('users-auth', JSON.stringify(data));
       setAuthUser(data);
     } catch (err) {

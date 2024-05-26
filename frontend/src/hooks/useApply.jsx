@@ -59,6 +59,7 @@ const useApply = () => {
         toast.error(data.message);
         return false;
       }
+      toast.success('Successfully applied');
       console.log(data);
     } catch (err) {
       toast.error(err.message);
