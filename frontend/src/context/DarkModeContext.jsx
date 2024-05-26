@@ -14,7 +14,6 @@ export const DarkModeProvider = ({ children }) => {
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevDarkMode) => !prevDarkMode);
-    console.log(isDarkMode);
   };
 
   return (

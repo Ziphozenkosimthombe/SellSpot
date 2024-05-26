@@ -20,7 +20,7 @@ const useLogin = () => {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
-      console.log(data);
+
       if (data.message === 'Invalid credentials') {
         toast.error(data.message);
         return false;

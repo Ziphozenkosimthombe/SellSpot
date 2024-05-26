@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-
+import ProductDetails from './components/ProductDetails';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
@@ -26,6 +26,7 @@ function App() {
   return (
     <div className={`${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <Routes>
+         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/" element={authUser ? <Home /> : <Main />} />
         <Route
           path="/signup"

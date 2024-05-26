@@ -24,7 +24,7 @@ const useSignup = () => {
         body: JSON.stringify({ username, email, password, confirmPassword }),
       });
       const data = await res.json();
-      console.log(data);
+
       if (data.message === 'User already exists') {
         toast.error(data.message);
         return false;

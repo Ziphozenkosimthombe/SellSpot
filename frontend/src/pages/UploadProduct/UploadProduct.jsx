@@ -1,6 +1,6 @@
 import CurrencyInput from 'react-currency-input-field';
 import useUploadProduct from '../../hooks/useUploadProduct';
-
+import ProductList from '../../components/ProductList';
 import { useState } from 'react';
 
 const UploadProduct = () => {
@@ -152,7 +152,7 @@ const UploadProduct = () => {
                 id="Image"
                 type="file"
                 multiple
-                className="w-full border-2 border-black rounded-lg p-3 bg-white"
+                className="w-full border-2 border-black rounded-lg p-3 bg-white text-black"
               />
             </div>
 
@@ -168,6 +168,8 @@ const UploadProduct = () => {
           </form>
         </div>
       </div>
+
+      <ProductList />
     </>
   );
 };
