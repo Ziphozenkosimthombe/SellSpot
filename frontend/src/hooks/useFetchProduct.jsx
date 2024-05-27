@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useFetchProducts = () => {
+const useFetchProducts = (trigger) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -11,8 +11,15 @@ const useFetchProducts = () => {
       try {
         const res = await fetch('/api/seller/uploads');
 
-        const data = await res.json();
+        if (!res.ok) {
+          if (res.status === 401) {
+            throw new Error('Unauthorized');
+          } else {
+            throw new Error('Failed to fetch products');
+          }
+        }
 
+        const data = await res.json();
         setProducts(data);
       } catch (err) {
         setError(err.message);
@@ -22,7 +29,7 @@ const useFetchProducts = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [trigger]);
 
   return { products, isLoading, error };
 };

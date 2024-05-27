@@ -12,7 +12,7 @@ const UploadProduct = () => {
     images: [],
     stock_quantity: '',
   });
-
+  const [uploadTrigger, setUploadTrigger] = useState(0);
   const { uploadProduct, isLoading } = useUploadProduct();
 
   const handleChange = (e) => {
@@ -52,10 +52,10 @@ const UploadProduct = () => {
       .split('\n')
       .forEach((desc) => formDataToSend.append('description', desc));
     formData.images.forEach((file) => {
-      formDataToSend.append('files', file); // use 'files' to match your backend multer middleware
+      formDataToSend.append('files', file);
     });
 
-    uploadProduct(formDataToSend);
+    uploadProduct(formDataToSend, () => setUploadTrigger(uploadTrigger + 1));
   };
 
   return (
@@ -169,7 +169,7 @@ const UploadProduct = () => {
         </div>
       </div>
 
-      <ProductList />
+      <ProductList trigger={uploadTrigger} />
     </>
   );
 };

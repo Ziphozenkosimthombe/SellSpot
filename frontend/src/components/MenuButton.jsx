@@ -14,8 +14,8 @@ const MenuButton = ({ menuOpen, toggleMenu }) => {
 };
 
 MenuButton.propTypes = {
-  menuOpen: PropTypes.bool.isRequired, // Ensure menuOpen is a boolean and is required
-  toggleMenu: PropTypes.func.isRequired, // Ensure toggleMenu is a function and is required
+  menuOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
 };
 
 export default MenuButton;

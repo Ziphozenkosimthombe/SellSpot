@@ -1,28 +1,24 @@
 import { useState } from 'react';
 import useFetchProducts from '../hooks/useFetchProduct';
 
-const ProductList = () => {
-  const { products, isLoading, error } = useFetchProducts();
+const ProductList = ({ trigger }) => {
+  const { products, isLoading, error } = useFetchProducts(trigger);
   const [expandedProductId, setExpandedProductId] = useState(null);
 
   const toggleReadMore = (productId) => {
-    if (expandedProductId === productId) {
-      setExpandedProductId(null);
-    } else {
-      setExpandedProductId(productId);
-    }
+    setExpandedProductId(expandedProductId === productId ? null : productId);
   };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  if (!Array.isArray(products) || products.length === 0)
-    return <div>No products found.</div>; // Handle non-array responses
+
+  const productList = Array.isArray(products) ? products : [];
 
   return (
     <div>
       <h1>Product List</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
+        {productList.map((product) => (
           <div key={product._id} className="p-4 border rounded-lg shadow">
             {product.images.length > 0 && (
               <img

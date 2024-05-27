@@ -4,12 +4,12 @@ import toast from 'react-hot-toast';
 const useUploadProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const uploadProduct = async (formData) => {
+  const uploadProduct = async (formData, onSuccess) => {
     setIsLoading(true);
     try {
       const res = await fetch('/api/seller/sell', {
         method: 'POST',
-        body: formData, // Do not set Content-Type, it will be set by the browser automatically
+        body: formData,
       });
 
       const data = await res.json();
@@ -19,6 +19,7 @@ const useUploadProduct = () => {
         return false;
       }
       toast.success('Product uploaded successfully');
+      if (onSuccess) onSuccess();
     } catch (err) {
       toast.error(err.message);
     } finally {
