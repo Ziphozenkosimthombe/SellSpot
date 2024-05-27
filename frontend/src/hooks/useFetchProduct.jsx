@@ -6,8 +6,11 @@ const useFetchProducts = (trigger) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProducts = async () => {
-      setIsLoading(true);
+      if (isMounted) {
+        setIsLoading(true);
+      }
       try {
         const res = await fetch('/api/seller/uploads');
 
@@ -20,15 +23,24 @@ const useFetchProducts = (trigger) => {
         }
 
         const data = await res.json();
-        setProducts(data);
+        if (isMounted) {
+          setProducts(data);
+        }
       } catch (err) {
-        setError(err.message);
+        if (isMounted) {
+          setError(err.message);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchProducts();
+    return () => {
+      isMounted = false;
+    };
   }, [trigger]);
 
   return { products, isLoading, error };

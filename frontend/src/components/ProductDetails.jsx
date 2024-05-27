@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import useCart from '../hooks/useAddCarts';
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-
+  const { addItemToCart, isLoading } = useCart();
   useEffect(() => {
+    let isMounted = true;
     const fetchProductDetails = async () => {
       try {
         const response = await fetch(`/api/seller/products/${productId}`);
         if (response.ok) {
           const productData = await response.json();
-          setProduct(productData);
+          if (isMounted) {
+            setProduct(productData);
+          }
         } else {
           console.error('Failed to fetch product details');
         }
@@ -21,12 +24,17 @@ const ProductDetails = () => {
     };
 
     fetchProductDetails();
+    return () => {
+      isMounted = false;
+    };
   }, [productId]);
 
   if (!product) {
     return <div>Loading...</div>;
   }
-
+  const handleAddToCart = () => {
+    addItemToCart(product._id, 1);
+  };
   return (
     <div className="container mx-auto mt-20 p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -72,8 +80,15 @@ const ProductDetails = () => {
             </p>
           </div>
           <div className="mt-6 grid grid-cols-2 gap-4">
-            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
-              Add to Cart
+            <button
+              onClick={handleAddToCart}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              {isLoading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                'Add To Cart'
+              )}
             </button>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
               Add to WishList

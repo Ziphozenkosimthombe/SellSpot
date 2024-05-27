@@ -10,6 +10,8 @@ import UploadProduct from './pages/UploadProduct/UploadProduct';
 import { DarkModeContext } from './context/DarkModeContext';
 import ApplyToSell from './pages/Apply/ApplyToSell';
 import { useAuthContext } from './context/AuthContext';
+import Carts from './pages/Carts/Carts';
+
 function App() {
   const { authUser } = useAuthContext();
   const { isDarkMode } = useContext(DarkModeContext);
@@ -26,7 +28,7 @@ function App() {
   return (
     <div className={`${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <Routes>
-         <Route path="/products/:productId" element={<ProductDetails />} />
+        <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/" element={authUser ? <Home /> : <Main />} />
         <Route
           path="/signup"
@@ -47,6 +49,10 @@ function App() {
         <Route
           path="/upload"
           element={authUser ? <UploadProduct /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/cart"
+          element={authUser ? <Carts /> : <Navigate to="/login" />}
         />
       </Routes>
 

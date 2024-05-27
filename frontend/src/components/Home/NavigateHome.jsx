@@ -8,16 +8,22 @@ const NavigateHome = () => {
   const [userData, setUserData] = useState({ username: '', is_seller: false });
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const response = await fetch('/api/accounts/account');
         const data = await response.json();
-        setUserData(data);
+        if (isMounted) {
+          setUserData(data);
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
     fetchData();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const { username: name, is_seller } = userData;

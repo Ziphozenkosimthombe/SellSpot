@@ -23,3 +23,15 @@
 .example {
   margin-right: 5rem;
 }
+
+.image-details-container {
+  width: 50rem;
+}
+
+.cart-summary {
+  width: 25rem;
+}
+
+.shipped {
+  height: 5rem;
+}
