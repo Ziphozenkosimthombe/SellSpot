@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useRemoveCart from '../../hooks/useRemoveCarts';
-
+import Loading from '../../components/Loading';
 const Carts = () => {
   const [carts, setCarts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +53,7 @@ const Carts = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
