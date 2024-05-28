@@ -7,7 +7,7 @@ class WishListController {
       const userId = req.user._id;
       const wishList = await List.findOne({ user: userId }).populate({
         path: 'items.product',
-        select: 'title description price stock_quantity images',
+        select: 'title description price stock_quantity images status',
         populate: {
           path: 'seller',
           select: 'firstName lastName email phoneNumber companyName',
