@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useCart from '../hooks/useAddCarts';
+import Loading from './Loading';
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -30,7 +31,7 @@ const ProductDetails = () => {
   }, [productId]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   const handleAddToCart = () => {
     addItemToCart(product._id, 1);

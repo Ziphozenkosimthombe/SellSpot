@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useFetchProducts from '../hooks/useFetchProduct';
-
+import Loading from './Loading';
 const ProductList = ({ trigger }) => {
   const { products, isLoading, error } = useFetchProducts(trigger);
   const [expandedProductId, setExpandedProductId] = useState(null);
@@ -9,7 +9,7 @@ const ProductList = ({ trigger }) => {
     setExpandedProductId(expandedProductId === productId ? null : productId);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
 
   const productList = Array.isArray(products) ? products : [];
