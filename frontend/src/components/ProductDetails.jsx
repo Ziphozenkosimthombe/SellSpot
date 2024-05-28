@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useCart from '../hooks/useAddCarts';
+import useAddCarts from '../hooks/useAddCarts';
 import Loading from './Loading';
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-  const { addItemToCart, isLoading } = useCart();
+  const { addItemToCart, isLoading } = useAddCarts();
+
   useEffect(() => {
     let isMounted = true;
     const fetchProductDetails = async () => {
@@ -33,9 +34,11 @@ const ProductDetails = () => {
   if (!product) {
     return <Loading />;
   }
+
   const handleAddToCart = () => {
     addItemToCart(product._id, 1);
   };
+
   return (
     <div className="container mx-auto mt-20 p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -84,6 +87,7 @@ const ProductDetails = () => {
             <button
               onClick={handleAddToCart}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+              disabled={isLoading}
             >
               {isLoading ? (
                 <span className="loading loading-spinner"></span>
