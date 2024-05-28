@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const useCart = () => {
-  const [cartIsLoading, setIsLoading] = useState(false);
+const useAddWishList = () => {
+  const [wishIsLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const addItemToCart = async (productId, quantity) => {
+  const addItemToWishList = async (productId) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/carts/cart`, {
+      const res = await fetch('/api/wishlists/wishlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ productId, quantity }),
+        body: JSON.stringify({ productId }),
       });
-      const data = await response.json();
+      const data = await res.json();
       if (data.message) {
         toast.error(data.message);
         setError(data.message);
         return false;
       }
-      toast.success('Product added to cart');
+      toast.success('Product added to wishlist');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -29,7 +29,7 @@ const useCart = () => {
     }
   };
 
-  return { cartIsLoading, error, addItemToCart };
+  return { wishIsLoading, error, addItemToWishList };
 };
 
-export default useCart;
+export default useAddWishList;

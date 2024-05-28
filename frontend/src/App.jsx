@@ -11,6 +11,7 @@ import { DarkModeContext } from './context/DarkModeContext';
 import ApplyToSell from './pages/Apply/ApplyToSell';
 import { useAuthContext } from './context/AuthContext';
 import Carts from './pages/Carts/Carts';
+import WishList from './pages/WishList/WishList';
 
 function App() {
   const { authUser } = useAuthContext();
@@ -24,7 +25,6 @@ function App() {
       document.documentElement.classList.remove('dark-mode');
     }
   }, [isDarkMode]);
-
   return (
     <div className={`${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       <Routes>
@@ -53,6 +53,10 @@ function App() {
         <Route
           path="/cart"
           element={authUser ? <Carts /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/wishlist"
+          element={authUser ? <WishList /> : <Navigate to="/login" />}
         />
       </Routes>
 

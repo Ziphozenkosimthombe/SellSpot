@@ -49,7 +49,7 @@ const NavigateHome = () => {
         </li>
         <li className="pl-4 border-l border-gray-300 first:pl-0 first:border-0">
           <Links
-            to="/list"
+            to="/wishlist"
             text={<FaRegHeart className="w-6 h-6 cursor-pointer" />}
           />
         </li>

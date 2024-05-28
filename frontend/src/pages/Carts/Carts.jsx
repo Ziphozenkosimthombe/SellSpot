@@ -65,8 +65,10 @@ const Carts = () => {
       {carts && carts.items.length > 0 ? (
         <div className="product-listing mt-16">
           <div className="grid grid-row gap-4">
-            <div className="shadow-2xl image-details-container shipped">
-              <h1 className="pt-8 pl-5">Shipped from ShopSpot Warehouse</h1>
+            <div className="shadow-2xl image-details-container shipped flex justify-center">
+              <h1 className="pt-8 text-gray-500 font-bold text-2xl">
+                Shipped from ShopSpot Warehouse
+              </h1>
             </div>
             {carts.items.map((item) => (
               <div

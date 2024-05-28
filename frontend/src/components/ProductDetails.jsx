@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAddCarts from '../hooks/useAddCarts';
+import useAddWishList from '../hooks/useAddWishList';
+
 import Loading from './Loading';
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-  const { addItemToCart, isLoading } = useAddCarts();
-
+  const { addItemToCart, cartIsLoading } = useAddCarts();
+  const { addItemToWishList, wishIsLoading } = useAddWishList();
   useEffect(() => {
     let isMounted = true;
     const fetchProductDetails = async () => {
@@ -38,6 +40,9 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     addItemToCart(product._id, 1);
   };
+  const handleAddToWishList = () => {
+    addItemToWishList(product._id);
+  };
 
   return (
     <div className="container mx-auto mt-20 p-6">
@@ -59,6 +64,9 @@ const ProductDetails = () => {
           <p className="text-lg font-medium mb-4">
             Stock Quantity: {product.stock_quantity}
           </p>
+          <span className="text-lg text-gray-500 font-bold mb-4">
+            {product.status}
+          </span>
           <div>
             <h3 className="text-xl font-semibold mb-2">Description</h3>
             <ul className="list-disc pl-5 space-y-2">
@@ -87,16 +95,24 @@ const ProductDetails = () => {
             <button
               onClick={handleAddToCart}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-              disabled={isLoading}
+              disabled={cartIsLoading}
             >
-              {isLoading ? (
+              {cartIsLoading ? (
                 <span className="loading loading-spinner"></span>
               ) : (
                 'Add To Cart'
               )}
             </button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-              Add to WishList
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              onClick={handleAddToWishList}
+              disabled={wishIsLoading}
+            >
+              {wishIsLoading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                'Add To WishList'
+              )}
             </button>
           </div>
         </div>
