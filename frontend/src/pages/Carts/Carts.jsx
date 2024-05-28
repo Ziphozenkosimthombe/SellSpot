@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import useRemoveCart from '../../hooks/useRemoveCarts';
+
 const Carts = () => {
   const [carts, setCarts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { removeItemFromCart, isLoading: isRemoving } = useRemoveCart();
+  const [removingItemId, setRemovingItemId] = useState(null);
+  const [refreshFlag, setRefreshFlag] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -36,7 +41,16 @@ const Carts = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [refreshFlag]);
+
+  const handleRemoveItem = async (productId) => {
+    setRemovingItemId(productId);
+    const { success } = await removeItemFromCart(productId);
+    if (success) {
+      setRefreshFlag((prevFlag) => !prevFlag);
+    }
+    setRemovingItemId(null);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -77,6 +91,15 @@ const Carts = () => {
                     Qty{' '}
                     <span className="text-xl font-bold">{item.quantity}</span>
                   </p>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg mt-4"
+                    onClick={() => handleRemoveItem(item.product._id)}
+                    disabled={isRemoving && removingItemId === item.product._id}
+                  >
+                    {isRemoving && removingItemId === item.product._id
+                      ? 'Removing...'
+                      : 'Remove'}
+                  </button>
                 </div>
               </div>
             ))}
