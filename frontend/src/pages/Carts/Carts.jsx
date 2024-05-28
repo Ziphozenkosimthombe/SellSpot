@@ -116,10 +116,10 @@ const Carts = () => {
       <div className="cart-summary flex flex-col p-4 shadow-2xl h-full rounded-2xl mt-16">
         <h1 className="mt-10 font-extrabold ml-5 text-lg">Cart Summary</h1>
         <div className="flex justify-between">
-          <div>
-            <h2>
+          <div className="mt-2 ml-5">
+            <h2 className="text-lg font-bold">
               Total (
-              <span>
+              <span className="font-normal text-normal  ">
                 {carts ? carts.items.length : 0}{' '}
                 {carts && carts.items.length > 1 ? 'items' : 'item'}
               </span>
