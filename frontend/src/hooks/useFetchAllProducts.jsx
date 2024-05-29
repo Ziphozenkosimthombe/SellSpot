@@ -21,6 +21,7 @@ const useFetchAllProducts = () => {
       } catch (err) {
         if (isMounted) {
           setError(err.message);
+          setProducts([]);
         }
       } finally {
         if (isMounted) {

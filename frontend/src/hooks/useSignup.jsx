@@ -1,17 +1,13 @@
-import toast from 'react-hot-toast';
-import { useAuthContext } from '../context/AuthContext';
 import { useState } from 'react';
+import { useAuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const useSignup = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { setAuthUser } = useAuthContext();
+  const { setAuthUser, storeUserData } = useAuthContext();
+
   const signup = async ({ username, email, password, confirmPassword }) => {
-    const success = handleErrors({
-      username,
-      email,
-      password,
-      confirmPassword,
-    });
+    const success = handleErrors({ username, email, password, confirmPassword });
     if (!success) return;
 
     setIsLoading(true);
@@ -25,23 +21,29 @@ const useSignup = () => {
       });
       const data = await res.json();
 
-      if (data.message === 'User already exists') {
+      if (data.message) {
         toast.error(data.message);
         return false;
       }
-      if (data.message === 'Password must be at least 8 characters') {
-        toast.error(data.message);
-        return false;
-      }
+
       toast.success('Signup successful');
-      localStorage.setItem('users-auth', JSON.stringify(data));
-      setAuthUser(data);
+      const userData = {
+        _id: data._id,
+        username: data.username,
+        email: data.email,
+        token: data.token,
+        timestamp: new Date().getTime(),
+      };
+
+      storeUserData(userData);
+      setAuthUser(userData);
     } catch (err) {
       toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
   };
+
   return { signup, isLoading };
 };
 
@@ -57,7 +59,7 @@ function handleErrors({ username, email, password, confirmPassword }) {
     return false;
   }
   if (username.length < 5) {
-    toast.error('Username must be at least 3 characters');
+    toast.error('Username must be at least 5 characters');
     return false;
   }
   if (!username.match(/^[a-zA-Z]+$/)) {
@@ -67,3 +69,4 @@ function handleErrors({ username, email, password, confirmPassword }) {
 
   return true;
 }
+

@@ -1,14 +1,16 @@
-import toast from 'react-hot-toast';
-import { useAuthContext } from '../context/AuthContext';
 import { useState } from 'react';
+import { useAuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const useLogin = () => {
-  const { setAuthUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
+  const { setAuthUser, storeUserData } = useAuthContext();
 
   const login = async ({ email, password }) => {
-    const success = handleErrors({ email, password });
-    if (!success) return;
+    if (!email || !password) {
+      toast.error('Please fill in all fields');
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -21,27 +23,30 @@ const useLogin = () => {
       });
       const data = await res.json();
 
-      if (data.message === 'Invalid credentials') {
+      if (!res.ok) {
         toast.error(data.message);
-        return false;
+        return;
       }
+
       toast.success('Login successful');
-      localStorage.setItem('users-auth', JSON.stringify(data));
-      setAuthUser(data);
+      const userData = {
+        _id: data._id,
+        username: data.username,
+        email: data.email,
+        token: data.token,
+        timestamp: new Date().getTime(),
+      };
+
+      storeUserData(userData);
+      setAuthUser(userData);
     } catch (err) {
       toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
   };
+
   return { login, isLoading };
 };
-export default useLogin;
 
-const handleErrors = ({ email, password }) => {
-  if (!email || !password) {
-    toast.error('Please fill in all fields');
-    return false;
-  }
-  return true;
-};
+export default useLogin;
