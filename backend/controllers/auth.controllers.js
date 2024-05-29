@@ -35,11 +35,12 @@ class AuthController {
       await newUser.save();
 
       if (newUser) {
-        generateTokenAndSetCookie(newUser._id, res);
+        const token = generateTokenAndSetCookie(newUser._id, res);
         return res.status(201).json({
           _id: newUser._id,
           username: newUser.username,
           email: newUser.email,
+          token,
         });
       }
       const error = new Error('Invalid user data');
@@ -67,11 +68,12 @@ class AuthController {
         return next(error);
       }
 
-      generateTokenAndSetCookie(user._id, res);
+      const token = generateTokenAndSetCookie(user._id, res);
       res.status(201).json({
         _id: user._id,
         username: user.username,
         email: user.email,
+        token,
       });
     } catch (err) {
       console.log('Error on the auth.controller login', err);
