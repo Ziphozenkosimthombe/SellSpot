@@ -4,9 +4,8 @@ const Home = () => {
   return (
     <>
       <HeaderHome />
-      <div className="mt-24">
-        <AllProductList />
-      </div>
+
+      <AllProductList />
     </>
   );
 };

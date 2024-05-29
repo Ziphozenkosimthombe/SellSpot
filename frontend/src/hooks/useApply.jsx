@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLocalStorage } from 'usehooks-ts';
-
+import { useNavigate } from 'react-router-dom';
 const useApply = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [value] = useLocalStorage('users-auth', 0);
@@ -51,6 +52,10 @@ const useApply = () => {
         }),
       });
       const data = await res.json();
+      if (res.ok) {
+        toast.success('Successfully applied');
+        navigate('/home');
+      }
       if (data.message === 'User not found') {
         toast.error(data.message);
         return false;
@@ -59,8 +64,6 @@ const useApply = () => {
         toast.error(data.message);
         return false;
       }
-      toast.success('Successfully applied');
-      console.log(data);
     } catch (err) {
       toast.error(err.message);
     } finally {

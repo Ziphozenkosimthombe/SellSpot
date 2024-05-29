@@ -2,7 +2,8 @@ import CurrencyInput from 'react-currency-input-field';
 import useUploadProduct from '../../hooks/useUploadProduct';
 import ProductList from '../../components/ProductList';
 import { useState } from 'react';
-
+import { Link } from 'react-router-dom';
+import { RxDoubleArrowLeft } from 'react-icons/rx';
 const UploadProduct = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -60,6 +61,11 @@ const UploadProduct = () => {
 
   return (
     <>
+      <div className="p-6">
+        <Link to="/home" className="">
+          <RxDoubleArrowLeft className="w-6 h-6 mr-2" />
+        </Link>
+      </div>
       <div className="flex justify-center mt-16">
         <div className="changing p-6 rounded-lg shadow-2xl bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
           <h1 className="text-3xl">Upload Product</h1>

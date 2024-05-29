@@ -12,6 +12,7 @@ import ApplyToSell from './pages/Apply/ApplyToSell';
 import { useAuthContext } from './context/AuthContext';
 import Carts from './pages/Carts/Carts';
 import WishList from './pages/WishList/WishList';
+import Account from './pages/Account/Account';
 
 function App() {
   const { authUser } = useAuthContext();
@@ -57,6 +58,10 @@ function App() {
         <Route
           path="/wishlist"
           element={authUser ? <WishList /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/account"
+          element={authUser ? <Account /> : <Navigate to="/login" />}
         />
       </Routes>
 
