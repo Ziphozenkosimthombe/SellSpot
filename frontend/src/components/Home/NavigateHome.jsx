@@ -1,9 +1,9 @@
+import { useState, useEffect } from 'react';
 import Links from '../Links';
 import LogoutButton from './LogoutButton';
 import { FiShoppingCart } from 'react-icons/fi';
 import { FaRegHeart } from 'react-icons/fa';
 import { useLocalStorage } from 'usehooks-ts';
-import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const NavigateHome = () => {
@@ -23,7 +23,7 @@ const NavigateHome = () => {
         }
         const data = await res.json();
         if (isMounted) {
-          setCarts(data);
+          setCarts(data || { items: [] });
         }
       } catch (err) {
         if (isMounted) {
@@ -42,6 +42,8 @@ const NavigateHome = () => {
       isMounted = false;
     };
   }, []);
+
+  const cartItems = carts.items || [];
 
   return (
     <>
@@ -67,9 +69,9 @@ const NavigateHome = () => {
             text={
               <>
                 <FiShoppingCart className="w-6 h-6 cursor-pointer" />
-                {!isLoading && carts.items.length > 0 && (
+                {!isLoading && cartItems.length > 0 && (
                   <span className="absolute top-0 right-0 text-xs bg-red-600 text-white rounded-full px-1">
-                    {carts.items.length}
+                    {cartItems.length}
                   </span>
                 )}
               </>
