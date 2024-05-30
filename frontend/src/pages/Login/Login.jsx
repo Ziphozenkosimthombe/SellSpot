@@ -68,9 +68,8 @@ const Login = () => {
           <Link
             to={'/signup'}
             className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
-            href="#"
           >
-            Already have an account?
+            Don't have an account?
           </Link>
           <div>
             <button className="btn w-60 btn-sm mt-2 border border-slate-700 font-extrabold">
