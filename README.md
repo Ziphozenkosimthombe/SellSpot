@@ -36,7 +36,7 @@ This is the user-friendly e-commerce full-stack web application. The main purpos
 
 ### What I learned
 
-As I was building the Full stack Application i learn a lot of thing especially when it comes to the frontend it was my first time building the big application that fetch the data from the database using React on frontend so i learn a lot about useEffect and useState. I also uses JWT jsonwebtoken to make it easy to my frontend to iterate with my backend so was my first time using it and i learn a lot of thing using jwt.
+As I was building this Full stack Application i learn a lot of things especially when it's comes to the frontend it was my first time building the big application that fetch the data from the database using React on frontend so i learn a lot about useEffect and useState. On my backend I also uses JWT jsonwebtoken to make it easy to my frontend to iterate with my backend so was my first time using it and i learn a lot of thing using jwt.
 
 ```js
 const generateTokenAndSetCookie = (userId, res) => {
@@ -67,7 +67,7 @@ const generateTokenAndSetCookie = (userId, res) => {
 
 ### Continued development
 
-I will continue try to implement more feature on my platform make the payment system work correct, adding the order tracker so that user can able to track product they buy, i will also implement maybe the google auth or microsoft auth to make it more secure.
+I will continue try to implement more features on my application, make the payment system work correct, adding the order tracker so that user can able to track product they buy, i will also implement maybe the google auth or microsoft auth to make my application  more secure.
 
 ### Install It Locally
 
