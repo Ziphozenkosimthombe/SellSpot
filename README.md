@@ -90,6 +90,6 @@ To install it in your local machine:
 - pnpm run dev ( on my frontend)
 
 ## Author
-- Portfolio - [zipho](https://ziphozenkosi.netlify.app)
-- Linkedin - [@ziphozenkosi](https://linkedin.com/in/ziphozenkosi)
+- Portfolio - [ziphozenkosi](https://ziphozenkosi.netlify.app)
+- Linkedin - [ziphozenkosi](https://linkedin.com/in/ziphozenkosi)
 - Twitter - [@ziphozenkosi478](https://www.twitter.com/ziphozenkosi478)
