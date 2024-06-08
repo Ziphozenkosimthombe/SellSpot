@@ -35,13 +35,14 @@
   width: 25rem;
 }
 
-.shipped {
-  height: 5rem;
+.image{
+  height: 15rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.image {
-  height: 25.5rem;
-}
 
 .loading-page {
   height: 100vh;
@@ -81,4 +82,17 @@
 }
 .btn-1 {
   width: 10rem;
+}
+
+
+/* Hide the up and down arrows in number input fields */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

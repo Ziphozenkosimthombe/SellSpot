@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import useFetchAllProducts from '../hooks/useFetchAllProducts';
 import Loading from './Loading';
-import { useState } from 'react';
+import {useState} from 'react';
 const AllProductList = () => {
-  const { products, isLoading } = useFetchAllProducts();
+  const {products, isLoading} = useFetchAllProducts();
   const [searchTerm, setSearchTerm] = useState('');
   if (isLoading) return <Loading />;
   if (!Array.isArray(products)) {
@@ -26,26 +26,26 @@ const AllProductList = () => {
         </div>
       </div>
       <div className="mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mr-10 ml-10">
           {filteredProducts.map((product) => (
             <Link to={`/products/${product._id}`} key={product._id}>
               <div className="col-span-1 p-4  rounded-2xl shadow-2xl cursor-pointer all-product">
-                <div className="aspect-w-1 aspect-h-1">
+                <div className="aspect-w-1 aspect-h-1 image-wrapper">
                   {product.images.length > 0 && (
                     <img
                       src={product.images[0]}
                       alt={`${product.title} 1`}
-                      className="object-cover image rounded-l-xl pl-2.5"
+                      className="object-cover image rounded-2xl"
                     />
                   )}
                 </div>
-                <h2 className="text-xl font-bold pl-2.5 pt-3">
+                <h2 className="text-xl font-bold pt-3">
                   {product.title}
                 </h2>
-                <p className="text-2xl font-bold text-green-600 mb-1 pl-2.5">
+                <p className="text-2xl font-bold text-green-600 mb-1 ">
                   R{product.price.toLocaleString()}
                 </p>
-                <span className="pl-2.5 ">({product.stock_quantity})</span>
+                <span className="">({product.stock_quantity})</span>
               </div>
             </Link>
           ))}
