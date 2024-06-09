@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import {createContext, useContext, useState, useEffect} from 'react';
 import propTypes from 'prop-types';
-import { useNavigate, useLocation } from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 
 //  AuthContext
 export const AuthContext = createContext();
@@ -12,12 +12,12 @@ export const useAuthContext = () => {
 
 // Function to store user data with a timestamp
 export const storeUserData = (data) => {
-  const userData = { ...data, timestamp: new Date().getTime() };
+  const userData = {...data, timestamp: new Date().getTime()};
   localStorage.setItem('users-auth', JSON.stringify(userData));
 };
 
 // AuthContextProvider component
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({children}) => {
   const [authUser, setAuthUser] = useState(() => {
     const userData = JSON.parse(localStorage.getItem('users-auth'));
     if (userData) {
@@ -68,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [navigate, location.pathname]);
 
   return (
-    <AuthContext.Provider value={{ authUser, setAuthUser, storeUserData }}>
+    <AuthContext.Provider value={{authUser, setAuthUser, storeUserData}}>
       {children}
     </AuthContext.Provider>
   );

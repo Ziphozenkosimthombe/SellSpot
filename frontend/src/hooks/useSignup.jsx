@@ -69,4 +69,3 @@ function handleErrors({ username, email, password, confirmPassword }) {
 
   return true;
 }
-
