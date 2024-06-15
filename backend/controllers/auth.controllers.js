@@ -5,8 +5,8 @@ import generateTokenAndSetCookie from '../utils/generateTokeAndSetCookie';
 class AuthController {
   static async signup(req, res, next) {
     try {
-      const { username, email, password } = req.body;
-      const user = await User.findOne({ $or: [{ username }, { email }] });
+      const {username, email, password} = req.body;
+      const user = await User.findOne({$or: [{username}, {email}]});
 
       if (user) {
         const error = new Error('User already exists');
@@ -54,8 +54,8 @@ class AuthController {
 
   static async login(req, res, next) {
     try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
+      const {email, password} = req.body;
+      const user = await User.findOne({email});
 
       const isPasswordCorrect = await bcrypt.compare(
         password,
@@ -82,8 +82,8 @@ class AuthController {
   }
   static async logout(_req, res, next) {
     try {
-      res.cookie('jwt', '', { maxAge: 1 });
-      res.status(201).json({ message: 'Logged out successfully' });
+      res.cookie('jwt', '', {maxAge: 1});
+      res.status(201).json({message: 'Logged out successfully'});
     } catch (err) {
       console.log('Error on the auth.controller logout', err);
       return next(err);

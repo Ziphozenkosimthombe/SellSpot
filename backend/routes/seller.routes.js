@@ -25,5 +25,6 @@ router.post(
   upload.array('files', 3), // Allow up to 3 files
   SellProductController.createSellProduct
 );
+router.delete('/products/:id', protectRoute, SellProductController.deleteProduct);
 
 export default router;

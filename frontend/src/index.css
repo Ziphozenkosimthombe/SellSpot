@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
 .dark-mode {
   background-color: #22273e;
   color: #fff;
@@ -27,7 +32,12 @@
 .image-details-container {
   width: 50rem;
 }
-
+.image-details-container__detailts{
+  width:55rem;
+}
+.horizo{
+  width:16rem;
+}
 .account-style {
   width: 60rem;
 }
@@ -40,7 +50,11 @@
 }
 
 .image {
-  height: 25.5rem;
+  height: 180px;
+}
+.all-product{
+  width: 179px;
+  height: 310px;
 }
 
 .loading-page {

@@ -23,10 +23,10 @@ class SellProductController {
 
       //
       //Get other form data
-      const { title, description, price, category, stock_quantity } = req.body;
+      const {title, description, price, category, stock_quantity} = req.body;
 
       const userId = req.user._id;
-      const user = await Seller.findOne({ user: userId });
+      const user = await Seller.findOne({user: userId});
       const sellerId = user._id;
       //      console.log(user);
       if (!sellerId) {
@@ -97,7 +97,7 @@ class SellProductController {
   static async getFromUpload(req, res, next) {
     try {
       const userId = req.user.id; // Get the logged-in user's ID
-      const products = await Products.find({ user: userId }).populate({
+      const products = await Products.find({user: userId}).populate({
         path: 'seller',
         select: 'firstName lastName email phoneNumber companyName',
       });
@@ -110,7 +110,7 @@ class SellProductController {
   static async getByCategory(req, res, next) {
     try {
       const category = req.params.category;
-      const products = await Products.find({ category }).populate({
+      const products = await Products.find({category}).populate({
         path: 'seller',
         select: 'firstName lastName email phoneNumber companyName',
       });
@@ -135,6 +135,31 @@ class SellProductController {
       res.status(200).json(product);
     } catch (err) {
       console.log('Error on the sellProduct.controller getByProductId', err);
+      return next(err);
+    }
+  }
+  static async deleteProduct(req, res, next) {
+    try {
+      const {productId} = req.body;
+      const userId = req.user._id;
+      const product = await Products.findById(productId);
+      if (!product) {
+        const error = new Error('Product not found');
+        error.status = 404;
+        return next(error);
+      }
+
+      if (product.user.toString() !== userId.toString()) {
+        const error = new Error('You do not have permission to delete this product');
+        error.status = 403;
+        return next(error);
+      }
+      await Products.findByIdAndDelete(productId);
+      await Promise.all(product.cloudinaryId.map((id) => cloudinary.uploader.destroy(id)));
+      res.status(200).json({message: 'Product deleted successfully'});
+
+    } catch (err) {
+      console.log('Error on the sellProduct.controller deleteProduct', err);
       return next(err);
     }
   }

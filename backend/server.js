@@ -14,13 +14,13 @@ import notFound from './middleware/notFound.middleware';
 //import logger from './middleware/logger.middleware';
 
 const envFile = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
-dotenv.config({ path: envFile });
+dotenv.config({path: envFile});
 connectDB();
 
 const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //app.use(logger);

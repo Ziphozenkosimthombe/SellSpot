@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import useAddCarts from '../hooks/useAddCarts';
 import useAddWishList from '../hooks/useAddWishList';
 
 import Loading from './Loading';
+
 const ProductDetails = () => {
-  const { productId } = useParams();
+  const {productId} = useParams();
   const [product, setProduct] = useState(null);
-  const { addItemToCart, cartIsLoading } = useAddCarts();
-  const { addItemToWishList, wishIsLoading } = useAddWishList();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const {addItemToCart, cartIsLoading} = useAddCarts();
+  const {addItemToWishList, wishIsLoading} = useAddWishList();
+
   useEffect(() => {
     let isMounted = true;
     const fetchProductDetails = async () => {
@@ -18,6 +21,7 @@ const ProductDetails = () => {
           const productData = await response.json();
           if (isMounted) {
             setProduct(productData);
+            setSelectedImage(productData.images[0]);
           }
         } else {
           console.error('Failed to fetch product details');
@@ -40,84 +44,84 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     addItemToCart(product._id, 1);
   };
+
   const handleAddToWishList = () => {
     addItemToWishList(product._id);
   };
 
   return (
-    <div className="container mx-auto mt-20 p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="aspect-w-1 aspect-h-1">
-          {product.images.length > 0 && (
-            <img
-              src={product.images[0]}
-              alt={`${product.title} 1`}
-              className="object-cover w-full h-full rounded-lg shadow-lg"
-            />
-          )}
+    <div className="cart-container flex flex-row ml-10 mr-10 gap-6">
+      <div className="product-listing mt-16">
+        <div className="grid grid-row gap-4">
+          <div className="flex">
+            <div className="p-4 rounded-2xl shadow-2xl flex   image-details-container__detailts">
+              <div className="flex gap-4">
+                <div className="flex flex-col gap-4 mt-2">
+                  {product.images.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      alt={`${product.title} ${index + 1}`}
+                      className={`w-16 h-16 object-cover rounded-lg shadow-lg cursor-pointer ${selectedImage === image ? 'ring-2 ring-green-500' : ''}`}
+                      onClick={() => setSelectedImage(image)}
+                    />
+                  ))}
+                </div>
+                <div>
+
+                  {selectedImage && (
+                    <img
+                      src={selectedImage}
+                      alt={`${product.title} 1`}
+                      className="object-cover h-64  rounded-lg"
+                    />
+                  )}
+                </div>
+              </div>
+              <div className='ml-10'>
+                <h2 className="text-2xl font-bold">{product.title}</h2>
+                <hr className="my-2 mt-4" />
+                <span className="text-lg text-gray-500 font-bold">{product.status}</span>
+                <div className='flex'>
+
+                  <p >Sold by: <span className='text-blue-700'>{product.seller.companyName || `${product.seller.firstName} ${product.seller.lastName}`}</span> </p>
+                  <li className='ml-2'><span className='text-blue-700'>Fulfilled by SellSpot</span></li>
+                </div>
+                <hr className="my-2 mt-4"></hr>
+                <li>Eligible for next-day delivery or collection.</li>
+                <li>Free Delivery Available.</li>
+                <li>Hassle-Free Exchanges & Returns for 30 Days.</li>
+                <li>6-Month Limited Warranty.</li>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="p-4 border rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold mb-4">{product.title}</h2>
-          <p className="text-2xl font-bold text-green-600 mb-4">
-            R{product.price.toLocaleString()}
-          </p>
-          <p className="text-lg font-medium mb-4">
-            Stock Quantity: {product.stock_quantity}
-          </p>
-          <span className="text-lg text-gray-500 font-bold mb-4">
-            {product.status}
-          </span>
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Description</h3>
-            <ul className="list-disc pl-5 space-y-2">
-              {product.description.map((desc, index) => (
-                <li key={index}>{desc}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-2">Seller Information</h3>
-            <p className="mb-1">
-              <strong>Name:</strong> {product.seller.firstName}{' '}
-              {product.seller.lastName}
-            </p>
-            <p className="mb-1">
-              <strong>Company:</strong> {product.seller.companyName}
-            </p>
-            <p className="mb-1">
-              <strong>Email:</strong> {product.seller.email}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {product.seller.phoneNumber}
-            </p>
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-4">
-            <button
-              onClick={handleAddToCart}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-              disabled={cartIsLoading}
-            >
-              {cartIsLoading ? (
-                <span className="loading loading-spinner"></span>
-              ) : (
-                'Add To Cart'
-              )}
-            </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-              onClick={handleAddToWishList}
-              disabled={wishIsLoading}
-            >
-              {wishIsLoading ? (
-                <span className="loading loading-spinner"></span>
-              ) : (
-                'Add To WishList'
-              )}
-            </button>
+        <div className='p-4 rounded-2xl shadow-2xl image-details-container__detailts mt-10'>
+          <h1 className='text-2xl font-bold'>Descriptions</h1>
+          <ul className="list-none list-inside mt-4">
+            {product.description.map((desc, index) => (
+              <li key={index}>{desc}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className='p-4 rounded-2xl shadow-2xl image-details-container__detailts mt-10'>
+          <h1 className='text-2xl font-bold'>Seller Details</h1>
+          <div className='mt-4'>
+            <p><span className='font-bold'>Name:</span><a href='#' className='text-blue-900'> {product.seller.firstName} {product.seller.lastName}</a> </p>
+            <p> <span className='font-bold'>Email:</span><a href={`mailto:${product.seller.email}`} className='text-blue-900'> {product.seller.email} </a></p>
+            <p><span className='font-bold'>Phone Number:</span><a href={`tel:${product.seller.phoneNumber}`} className='text-blue-900'> {product.seller.phoneNumber}</a></p>
+            <p><span className='font-bold'>Company Name:</span><a href='#' className='text-blue-900'> {product.seller.companyName} </a></p>
           </div>
         </div>
       </div>
-    </div>
+      <div className="cart-summary flex flex-col p-4 shadow-2xl h-full rounded-2xl mt-16">
+        <h1 className="text-2xl font-bold text-green-600">R {product.price}</h1>
+        <span className='font-bold'>Free Shipping</span>
+        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg mt-4" onClick={handleAddToCart}>Add to Cart</button>
+        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg mt-4" onClick={handleAddToWishList}>Add to WishList</button>
+      </div>
+    </div >
   );
 };
 

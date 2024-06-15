@@ -5,7 +5,7 @@ class CartsController {
   static async getCart(req, res, next) {
     try {
       const userId = req.user._id;
-      const cart = await Carts.findOne({ user: userId }).populate({
+      const cart = await Carts.findOne({user: userId}).populate({
         path: 'items.product',
         select: 'title description price stock_quantity images',
         populate: {
@@ -21,7 +21,7 @@ class CartsController {
   }
   static async addItemToCart(req, res, next) {
     try {
-      const { productId, quantity } = req.body;
+      const {productId, quantity} = req.body;
       const userId = req.user._id;
 
       // Fetch the product by ID
@@ -34,7 +34,7 @@ class CartsController {
       }
 
       // Find or create the user's cart
-      let cart = await Carts.findOne({ user: userId });
+      let cart = await Carts.findOne({user: userId});
       if (!cart) {
         cart = new Carts({
           user: userId,
@@ -54,10 +54,10 @@ class CartsController {
 
   static async removeItemFromCart(req, res, next) {
     try {
-      const { productId } = req.body;
+      const {productId} = req.body;
       const userId = req.user._id;
 
-      const cart = await Carts.findOne({ user: userId });
+      const cart = await Carts.findOne({user: userId});
       if (!cart) {
         const error = new Error('Cart not found');
         error.status = 404;
