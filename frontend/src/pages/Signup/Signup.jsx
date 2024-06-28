@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import {Link} from 'react-router-dom';
+import {useState} from 'react';
 import useSignup from '../../hooks/useSignup';
 
 const Signup = () => {
@@ -9,9 +9,9 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
   });
-  const { signup, isLoading } = useSignup();
+  const {signup, isLoading} = useSignup();
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,

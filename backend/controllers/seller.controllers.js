@@ -34,7 +34,7 @@ class ApplyController {
         return next(error);
       }
       // Check if a seller already exists with the given userId
-      const existingSeller = await Seller.findOne({ user });
+      const existingSeller = await Seller.findOne({user});
       if (existingSeller) {
         const error = new Error('Seller already exists');
         error.status = 400;
@@ -42,7 +42,7 @@ class ApplyController {
       }
       // Check for existing seller with the same email, phone number, or company name
       const duplicateSeller = await Seller.findOne({
-        $or: [{ email }, { phoneNumber }, { companyName }],
+        $or: [{email}, {phoneNumber}, {companyName}],
       });
       if (duplicateSeller) {
         const error = new Error(
@@ -71,11 +71,11 @@ class ApplyController {
         {
           $set: {
             is_seller: true,
-            ...(address ? { address } : {}),
-            ...(phoneNumber ? { phoneNumber } : {}),
+            ...(address ? {address} : {}),
+            ...(phoneNumber ? {phoneNumber} : {}),
           },
         },
-        { new: true }
+        {new: true}
       );
 
       if (newUser) {

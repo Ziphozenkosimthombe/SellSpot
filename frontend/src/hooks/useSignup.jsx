@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useAuthContext } from '../context/AuthContext';
+import {useState} from 'react';
+import {useAuthContext} from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const useSignup = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { setAuthUser, storeUserData } = useAuthContext();
+  const {setAuthUser, storeUserData} = useAuthContext();
 
-  const signup = async ({ username, email, password, confirmPassword }) => {
-    const success = handleErrors({ username, email, password, confirmPassword });
+  const signup = async ({username, email, password, confirmPassword}) => {
+    const success = handleErrors({username, email, password, confirmPassword});
     if (!success) return;
 
     setIsLoading(true);
@@ -17,7 +17,7 @@ const useSignup = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password, confirmPassword }),
+        body: JSON.stringify({username, email, password, confirmPassword}),
       });
       const data = await res.json();
 
@@ -27,13 +27,7 @@ const useSignup = () => {
       }
 
       toast.success('Signup successful');
-      const userData = {
-        _id: data._id,
-        username: data.username,
-        email: data.email,
-        token: data.token,
-        timestamp: new Date().getTime(),
-      };
+      const {token, ...userData} = data;
 
       storeUserData(userData);
       setAuthUser(userData);
@@ -44,12 +38,12 @@ const useSignup = () => {
     }
   };
 
-  return { signup, isLoading };
+  return {signup, isLoading};
 };
 
 export default useSignup;
 
-function handleErrors({ username, email, password, confirmPassword }) {
+function handleErrors({username, email, password, confirmPassword}) {
   if (!username || !email || !password || !confirmPassword) {
     toast.error('Please fill in all fields');
     return false;

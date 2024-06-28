@@ -1,22 +1,22 @@
-import { Toaster } from 'react-hot-toast';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import {Toaster} from 'react-hot-toast';
+import {Routes, Route, Navigate} from 'react-router-dom';
+import {useContext, useEffect} from 'react';
 import ProductDetails from './components/ProductDetails';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
 import UploadProduct from './pages/UploadProduct/UploadProduct';
-import { DarkModeContext } from './context/DarkModeContext';
+import {DarkModeContext} from './context/DarkModeContext';
 import ApplyToSell from './pages/Apply/ApplyToSell';
-import { useAuthContext } from './context/AuthContext';
+import {useAuthContext} from './context/AuthContext';
 import Carts from './pages/Carts/Carts';
 import WishList from './pages/WishList/WishList';
 import Account from './pages/Account/Account';
 
 function App() {
-  const { authUser } = useAuthContext();
-  const { isDarkMode } = useContext(DarkModeContext);
+  const {authUser} = useAuthContext();
+  const {isDarkMode} = useContext(DarkModeContext);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark-mode');

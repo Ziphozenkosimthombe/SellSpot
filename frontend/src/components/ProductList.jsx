@@ -1,12 +1,26 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import useFetchProducts from '../hooks/useFetchProduct';
+import useDeleteProduct from '../hooks/useDeleteProduct';
 import Loading from './Loading';
-const ProductList = ({ trigger }) => {
-  const { products, isLoading, error } = useFetchProducts(trigger);
+import {useRefresh} from '../context/RefreshContext';
+
+const ProductList = () => {
+  const {trigger, incrementTrigger} = useRefresh();
+  const {products, isLoading, error} = useFetchProducts(trigger);
   const [expandedProductId, setExpandedProductId] = useState(null);
+  const {deleteProduct, isDeleting} = useDeleteProduct();
+  const [removingProductId, setRemovingProductId] = useState(null);
 
   const toggleReadMore = (productId) => {
     setExpandedProductId(expandedProductId === productId ? null : productId);
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    setRemovingProductId(productId);
+    await deleteProduct(productId);
+    setRemovingProductId(null);
+    // Trigger the page refresh after deleting the product
+    incrementTrigger();
   };
 
   if (isLoading) return <Loading />;
@@ -26,6 +40,12 @@ const ProductList = ({ trigger }) => {
                 className="w-50 h-50 object-cover"
               />
             )}
+            <button
+              onClick={() => handleDeleteProduct(product._id)}
+              disabled={isDeleting && removingProductId === product._id}
+            >
+              {isDeleting && removingProductId === product._id ? 'Deleting...' : 'Delete'}
+            </button>
             <h2 className="text-xl font-bold">{product.title}</h2>
             <ul className="list-none list-inside">
               {product.description.map((desc, index) => (
@@ -65,3 +85,4 @@ const ProductList = ({ trigger }) => {
 };
 
 export default ProductList;
+

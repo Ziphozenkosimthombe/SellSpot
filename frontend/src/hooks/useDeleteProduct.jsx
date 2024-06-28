@@ -1,15 +1,15 @@
 import {useState} from 'react';
 import toast from 'react-hot-toast';
 
-const useRemoveList = () => {
-  const [isRemoving, setIsRemoving] = useState(false);
+const useDeleteProduct = () => {
+  const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState(null);
 
-  const removeItemFromList = async (productId) => {
-    setIsRemoving(true);
+  const deleteProduct = async (productId) => {
+    setIsDeleting(true);
     setError(null);
     try {
-      const res = await fetch('/api/wishlists/wishlist', {
+      const res = await fetch(`/api/seller/products/${productId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -18,9 +18,9 @@ const useRemoveList = () => {
       });
 
       if (res.ok) {
-        const updatedWishList = await res.json();
-        toast.success('Item removed from wish list');
-        return {success: true, updatedWishList};
+        const updatedCart = await res.json();
+        toast.success('Item removed from cart');
+        return {success: true, updatedCart};
       } else {
         const data = await res.json();
         toast.error(data.message);
@@ -32,10 +32,11 @@ const useRemoveList = () => {
       setError(err.message);
       return {success: false};
     } finally {
-      setIsRemoving(false);
+      setIsDeleting(false);
     }
   };
-  return {isRemoving, error, removeItemFromList};
+
+  return {isDeleting, error, deleteProduct};
 };
 
-export default useRemoveList;
+export default useDeleteProduct;

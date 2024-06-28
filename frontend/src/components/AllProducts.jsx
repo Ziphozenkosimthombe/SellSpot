@@ -26,26 +26,26 @@ const AllProductList = () => {
         </div>
       </div>
       <div className="mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mr-10 ml-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6  xl:pl-10 xl:pr-10 md:pl-10 md:pr-10 lg:pl-10 lg:pr-10">
           {filteredProducts.map((product) => (
-            <Link to={`/products/${product._id}`} key={product._id}>
-              <div className="col-span-1 p-4  rounded-2xl shadow-2xl cursor-pointer all-product">
-                <div className="aspect-w-1 aspect-h-1 image-wrapper">
+            <Link to={`/products/${product._id}`} key={product._id} className='main__div'>
+              <div className="col-span-1 p-4 rounded-2xl shadow-2xl cursor-pointer all-product">
+                <div className="aspect-w-1 aspect-h-1">
                   {product.images.length > 0 && (
                     <img
                       src={product.images[0]}
                       alt={`${product.title} 1`}
-                      className="object-cover image rounded-2xl"
+                      className="object-cover image rounded-2xl pl-2.5 "
                     />
                   )}
                 </div>
-                <h2 className="text-xl font-bold pt-3">
+                <p className="text-sm   pl-2.5 pt-3">
                   {product.title}
-                </h2>
-                <p className="text-2xl font-bold text-green-600 mb-1 ">
+                </p>
+                <p className="text-2xl font-bold text-green-600 mb-1 pl-2.5">
                   R{product.price.toLocaleString()}
                 </p>
-                <span className="">({product.stock_quantity})</span>
+                <span className="pl-2.5 ">({product.stock_quantity})</span>
               </div>
             </Link>
           ))}

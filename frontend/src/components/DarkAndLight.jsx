@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { DarkModeContext } from '../context/DarkModeContext';
+import {useContext} from 'react';
+import {DarkModeContext} from '../context/DarkModeContext';
 
 const DarkMode = () => {
-  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
+  const {isDarkMode, toggleDarkMode} = useContext(DarkModeContext);
 
   return (
     <button onClick={toggleDarkMode}>

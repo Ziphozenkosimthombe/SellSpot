@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import useUpdateAccount from '../../hooks/useUpdateAccount';
 import Loading from '../../components/Loading';
 import useDeleteAccount from '../../hooks/useDeleteAccount';
@@ -11,8 +11,8 @@ const Account = () => {
     newPassword: '',
   });
 
-  const { updateAccount, isLoading } = useUpdateAccount();
-  const { deleteAccount, isDeleting } = useDeleteAccount();
+  const {updateAccount, isLoading} = useUpdateAccount();
+  const {deleteAccount, isDeleting} = useDeleteAccount();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,7 +33,7 @@ const Account = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setUser((prevState) => ({
       ...prevState,
       [name]: value,

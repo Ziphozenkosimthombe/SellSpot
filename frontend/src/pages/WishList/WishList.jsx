@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Loading from '../../components/Loading';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import useAddCarts from '../../hooks/useAddCarts';
 import useRemoveList from '../../hooks/useRemoveList';
 
@@ -9,9 +9,9 @@ const WishList = () => {
   const [wishes, setWishes] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { addItemToCart, cartIsLoading } = useAddCarts();
+  const {addItemToCart, cartIsLoading} = useAddCarts();
   const [loadingItemId, setLoadingItemId] = useState(null);
-  const { removeItemFromList, isRemoving } = useRemoveList();
+  const {removeItemFromList, isRemoving} = useRemoveList();
   const [removingItemId, setRemovingItemId] = useState(null);
   const [refreshFlag, setRefreshFlag] = useState(false);
 
@@ -50,7 +50,7 @@ const WishList = () => {
 
   const handleRemoveList = async (productId) => {
     setRemovingItemId(productId);
-    const { success } = await removeItemFromList(productId);
+    const {success} = await removeItemFromList(productId);
     if (success) {
       setRefreshFlag((prevFlag) => !prevFlag);
     }
