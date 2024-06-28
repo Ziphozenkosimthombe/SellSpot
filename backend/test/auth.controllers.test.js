@@ -81,7 +81,7 @@ describe('AuthController', () => {
       const res = await chai
         .request(server)
         .post('/api/users/login')
-        .send({ email: 'test@gmail.com', password: '12345678' });
+        .send({email: 'test@gmail.com', password: '12345678'});
 
       res.should.have.status(201);
       res.body.should.have.property('_id');
@@ -93,7 +93,7 @@ describe('AuthController', () => {
       const res = await chai
         .request(server)
         .post('/api/users/login')
-        .send({ email: 'test@gmail.com', password: 'wrongpassword' });
+        .send({email: 'test@gmail.com', password: 'wrongpassword'});
 
       res.should.have.status(400);
     });

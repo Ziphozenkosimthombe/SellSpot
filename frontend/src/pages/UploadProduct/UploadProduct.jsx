@@ -1,9 +1,11 @@
 import CurrencyInput from 'react-currency-input-field';
 import useUploadProduct from '../../hooks/useUploadProduct';
 import ProductList from '../../components/ProductList';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { RxDoubleArrowLeft } from 'react-icons/rx';
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {RxDoubleArrowLeft} from 'react-icons/rx';
+import {useRefresh} from '../../context/RefreshContext';
+
 const UploadProduct = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -13,11 +15,11 @@ const UploadProduct = () => {
     images: [],
     stock_quantity: '',
   });
-  const [uploadTrigger, setUploadTrigger] = useState(0);
-  const { uploadProduct, isLoading } = useUploadProduct();
+  const {incrementTrigger} = useRefresh();
+  const {uploadProduct, isLoading} = useUploadProduct();
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const {name, value, files} = e.target;
     if (name === 'images') {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -56,7 +58,7 @@ const UploadProduct = () => {
       formDataToSend.append('files', file);
     });
 
-    uploadProduct(formDataToSend, () => setUploadTrigger(uploadTrigger + 1));
+    uploadProduct(formDataToSend, () => incrementTrigger());
   };
 
   return (
@@ -175,9 +177,10 @@ const UploadProduct = () => {
         </div>
       </div>
 
-      <ProductList trigger={uploadTrigger} />
+      <ProductList trigger={0} /> {/* initial trigger */}
     </>
   );
 };
 
 export default UploadProduct;
+

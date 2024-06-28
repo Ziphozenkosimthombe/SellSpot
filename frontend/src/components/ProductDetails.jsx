@@ -112,14 +112,36 @@ const ProductDetails = () => {
             <p> <span className='font-bold'>Email:</span><a href={`mailto:${product.seller.email}`} className='text-blue-900'> {product.seller.email} </a></p>
             <p><span className='font-bold'>Phone Number:</span><a href={`tel:${product.seller.phoneNumber}`} className='text-blue-900'> {product.seller.phoneNumber}</a></p>
             <p><span className='font-bold'>Company Name:</span><a href='#' className='text-blue-900'> {product.seller.companyName} </a></p>
+
+
           </div>
         </div>
       </div>
       <div className="cart-summary flex flex-col p-4 shadow-2xl h-full rounded-2xl mt-16">
-        <h1 className="text-2xl font-bold text-green-600">R {product.price}</h1>
+        <h1 className="text-2xl font-bold text-green-600">{product ? `R ${product.price.toLocaleString()}` : 'R 0'}</h1>
+
         <span className='font-bold'>Free Shipping</span>
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg mt-4" onClick={handleAddToCart}>Add to Cart</button>
-        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg mt-4" onClick={handleAddToWishList}>Add to WishList</button>
+        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg mt-4"
+          onClick={handleAddToCart}
+          disabled={cartIsLoading}
+        >
+          {cartIsLoading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            'Add To Cart'
+          )}
+
+        </button>
+        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg mt-4"
+          onClick={handleAddToWishList}
+          disabled={wishIsLoading}
+        >
+          {wishIsLoading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            'Add To WishList'
+          )}
+        </button>
       </div>
     </div >
   );

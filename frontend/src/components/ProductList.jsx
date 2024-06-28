@@ -2,9 +2,10 @@ import {useState} from 'react';
 import useFetchProducts from '../hooks/useFetchProduct';
 import useDeleteProduct from '../hooks/useDeleteProduct';
 import Loading from './Loading';
+import {useRefresh} from '../context/RefreshContext';
 
-const ProductList = ({trigger}) => {
-  //  const [initTrigger, setInitTrigger] = useState(trigger);
+const ProductList = () => {
+  const {trigger, incrementTrigger} = useRefresh();
   const {products, isLoading, error} = useFetchProducts(trigger);
   const [expandedProductId, setExpandedProductId] = useState(null);
   const {deleteProduct, isDeleting} = useDeleteProduct();
@@ -18,7 +19,8 @@ const ProductList = ({trigger}) => {
     setRemovingProductId(productId);
     await deleteProduct(productId);
     setRemovingProductId(null);
-    //    setInitTrigger((prev) => prev + 1);
+    // Trigger the page refresh after deleting the product
+    incrementTrigger();
   };
 
   if (isLoading) return <Loading />;
