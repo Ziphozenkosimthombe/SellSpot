@@ -39,7 +39,7 @@ const AllProductList = () => {
                     />
                   )}
                 </div>
-                <p className="text-sm   pl-2.5 pt-3">
+                <p className="text-sm font-bold pl-2.5 pt-3">
                   {product.title}
                 </p>
                 <p className="text-2xl font-bold text-green-600 mb-1 pl-2.5">

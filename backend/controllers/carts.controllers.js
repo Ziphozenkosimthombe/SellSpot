@@ -70,6 +70,36 @@ class CartsController {
       return next(err);
     }
   }
+
+  static async updateStockQuantity(req, res, next) {
+    try {
+      const {productId, quantity} = req.body;
+      const userId = req.user._id;
+
+      if (quantity < 0) {
+        const error = new Error('Quantity cannot be negative');
+        error.status = 400;
+        return next(error);
+      }
+
+      const cart = await Carts.findOne({user: userId});
+      if (!cart) {
+        const error = new Error('Cart not found');
+        error.status = 404;
+        return next(error);
+      }
+
+      await cart.updateItemQuantity(productId, quantity);
+      return res.status(200).json(cart);
+    } catch (err) {
+      console.log('Error in CartsController updateStockQuantity:', err);
+      return next(err);
+    }
+  }
 }
+
+
+
+
 
 export default CartsController;
