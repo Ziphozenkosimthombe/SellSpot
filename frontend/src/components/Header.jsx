@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import MenuButton from './MenuButton';
 import NavigationLinks from './NavigationLinks';
 import DarkMode from './DarkAndLight';
@@ -31,7 +31,7 @@ const Header = () => {
           <ul className="">
             <Links to={'/login'} text={'Login'} />
             <Links to={'/signup'} text={'Register'} />
-            <Links to={'/aboutUs'} text={'About Us'} />
+            <Links to={'/about'} text={'About Us'} />
             <li className="py-2 px-4">
               <DarkMode />
             </li>

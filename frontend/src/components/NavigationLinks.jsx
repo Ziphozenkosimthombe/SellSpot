@@ -9,7 +9,7 @@ const NavigationLinks = () => {
         <Links to={'/signup'} text={'Register'} />
         <Links to={'/about'} text={'About Us'} />
 
-        <li>
+        <li className='mt-2'>
           <DarkMode />
         </li>
       </ul>
