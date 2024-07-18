@@ -65,21 +65,6 @@ cartsSchema.methods.removeItem = async function (productId) {
     return this.save();
   }
 };
-cartsSchema.methods.updateQuantity = async function (productId, quantity) {
-  const itemIndex = this.items.findIndex(
-    (item) => item.product.toString() === productId.toString()
-  );
-  if (itemIndex > -1) {
-    const item = this.items[itemIndex];
-    const oldPrice = item.price;
-    item.quantity = quantity;
-    item.price = quantity * item.product.price; // Update price based on new quantity
-    this.totalPrice += item.price - oldPrice; // Adjust total price
-    return this.save();
-  } else {
-    throw new Error('Product not found in cart');
-  }
-};
 
 const Carts = mongoose.model('Carts', cartsSchema);
 export default Carts;
