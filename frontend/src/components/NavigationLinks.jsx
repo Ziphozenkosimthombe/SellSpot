@@ -7,7 +7,7 @@ const NavigationLinks = () => {
       <ul className="hidden md:flex space-x-4">
         <Links to={'/login'} text={'Login'} />
         <Links to={'/signup'} text={'Register'} />
-        <Links to={'/aboutUs'} text={'About Us'} />
+        <Links to={'/about'} text={'About Us'} />
 
         <li>
           <DarkMode />

@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import {Link} from 'react-router-dom';
+import {useState} from 'react';
 import useLogin from '../../hooks/useLogin';
 
 const Login = () => {
@@ -7,10 +7,10 @@ const Login = () => {
     email: '',
     password: '',
   });
-  const { login, isLoading } = useLogin();
+  const {login, isLoading} = useLogin();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,

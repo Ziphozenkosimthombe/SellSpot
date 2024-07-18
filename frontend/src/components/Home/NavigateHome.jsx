@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Links from '../Links';
 import LogoutButton from './LogoutButton';
-import { FiShoppingCart } from 'react-icons/fi';
-import { FaRegHeart } from 'react-icons/fa';
-import { useLocalStorage } from 'usehooks-ts';
+import {FiShoppingCart} from 'react-icons/fi';
+import {FaRegHeart} from 'react-icons/fa';
+import {useLocalStorage} from 'usehooks-ts';
 import toast from 'react-hot-toast';
 
 const NavigateHome = () => {
-  const [carts, setCarts] = useState({ items: [] });
+  const [carts, setCarts] = useState({items: []});
   const [isLoading, setIsLoading] = useState(true);
   const [value] = useLocalStorage('users-auth', {});
-  const { username: name } = value;
+  const {username: name} = value;
 
   useEffect(() => {
     let isMounted = true;
@@ -23,7 +23,7 @@ const NavigateHome = () => {
         }
         const data = await res.json();
         if (isMounted) {
-          setCarts(data || { items: [] });
+          setCarts(data || {items: []});
         }
       } catch (err) {
         if (isMounted) {

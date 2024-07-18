@@ -6,6 +6,7 @@ import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import Home from './pages/Home/Home';
+import AboutUs from "./pages/AboutUs/AboutUs"
 import UploadProduct from './pages/UploadProduct/UploadProduct';
 import {DarkModeContext} from './context/DarkModeContext';
 import ApplyToSell from './pages/Apply/ApplyToSell';
@@ -31,6 +32,10 @@ function App() {
       <Routes>
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/" element={authUser ? <Home /> : <Main />} />
+        <Route
+          path="/about"
+          element={authUser ? <Navigate to="/home" /> : <AboutUs />}
+        />
         <Route
           path="/signup"
           element={authUser ? <Navigate to="/home" /> : <Signup />}
