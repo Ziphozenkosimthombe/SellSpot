@@ -84,8 +84,8 @@ const ProductDetails = () => {
                 <span className="text-lg text-gray-500 font-bold">{product.status}</span>
                 <div className='flex'>
 
-                  <p >Sold by: <span className='text-blue-700'>{product.seller.companyName || `${product.seller.firstName} ${product.seller.lastName}`}</span> </p>
-                  <li className='ml-2'><span className='text-blue-700'>Fulfilled by SellSpot</span></li>
+                  <p>Sold by: <span className='text-blue-700'>{product.seller.companyName || `${product.seller.firstName} ${product.seller.lastName}`}</span></p>
+                  <li className='ml-6'><span className='text-blue-700'>Fulfilled by SellSpot</span></li>
                 </div>
                 <hr className="my-2 mt-4"></hr>
                 <li>Eligible for next-day delivery or collection.</li>
